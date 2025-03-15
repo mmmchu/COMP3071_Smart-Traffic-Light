@@ -1,13 +1,16 @@
 import pygame
 
-from controls import vehicles, defaultStop, currentGreen, currentYellow
+import config
 
-speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles
+speeds = {'car': 2.25, 'bus': 1.8, 'truck': 1.8, 'bike': 2.5}  # average speeds of vehicles
 x = {'right': [1, 0, 1], 'down': [615, 635, 576], 'left': [1400, 1400, 1400], 'up': [790, 750, 709]}
 y = {'right': [446, 517, 476], 'down': [1, 0, 1], 'left': [323, 358, 399], 'up': [801, 803, 802]}
+vehicles = {'right': {0: [], 1: [], 2: [], 'crossed': 0}, 'down': {0: [], 1: [], 2: [], 'crossed': 0},
+            'left': {0: [], 1: [], 2: [], 'crossed': 0}, 'up': {0: [], 1: [], 2: [], 'crossed': 0}}
 stopLines = {'right': 450, 'down': 230, 'left': 900, 'up': 635}
-stoppingGap = 25    # stopping gap
-movingGap = 25   # moving gap
+defaultStop = {'right': 440, 'down': 220, 'left': 910, 'up': 650}
+stoppingGap = 25  # stopping gap
+movingGap = 25  # moving gap
 vehiclesTurned = {'right': {1: [], 2: []}, 'down': {1: [], 2: []}, 'left': {1: [], 2: []}, 'up': {1: [], 2: []}}
 vehiclesNotTurned = {'right': {1: [], 2: []}, 'down': {1: [], 2: []}, 'left': {1: [], 2: []}, 'up': {1: [], 2: []}}
 rotationAngle = 3
@@ -37,37 +40,29 @@ class Vehicle(pygame.sprite.Sprite):
         self.originalImage = pygame.image.load(path)
         self.image = pygame.image.load(path)
 
-        if(len(vehicles[direction][lane])>1 and vehicles[direction][lane][self.index - 1].crossed==0):
-            if(direction=='right'):
+        if len(vehicles[direction][lane]) > 1 and vehicles[direction][lane][self.index - 1].crossed == 0:
+            if direction == 'right':
                 self.stop = vehicles[direction][lane][self.index - 1].stop
-                - vehicles[direction][lane][self.index - 1].image.get_rect().width
-                - stoppingGap
-            elif(direction=='left'):
+            elif direction == 'left':
                 self.stop = vehicles[direction][lane][self.index - 1].stop
-                + vehicles[direction][lane][self.index - 1].image.get_rect().width
-                + stoppingGap
-            elif(direction=='down'):
+            elif direction == 'down':
                 self.stop = vehicles[direction][lane][self.index - 1].stop
-                - vehicles[direction][lane][self.index - 1].image.get_rect().height
-                - stoppingGap
-            elif(direction=='up'):
+            elif direction == 'up':
                 self.stop = vehicles[direction][lane][self.index - 1].stop
-                + vehicles[direction][lane][self.index - 1].image.get_rect().height
-                + stoppingGap
         else:
             self.stop = defaultStop[direction]
 
         # Set new starting and stopping coordinate
-        if(direction=='right'):
+        if direction == 'right':
             temp = self.image.get_rect().width + stoppingGap
             x[direction][lane] -= temp
-        elif(direction=='left'):
+        elif direction == 'left':
             temp = self.image.get_rect().width + stoppingGap
             x[direction][lane] += temp
-        elif(direction=='down'):
+        elif direction == 'down':
             temp = self.image.get_rect().height + stoppingGap
             y[direction][lane] -= temp
-        elif(direction=='up'):
+        elif direction == 'up':
             temp = self.image.get_rect().height + stoppingGap
             y[direction][lane] += temp
         simulation.add(self)
@@ -76,6 +71,9 @@ class Vehicle(pygame.sprite.Sprite):
         screen.blit(self.image, (self.x, self.y))
 
     def move(self):
+        currentGreen = config.currentGreen  # Fetch updated values
+        currentYellow = config.currentYellow
+
         if self.direction == 'right':
             if self.crossed == 0 and self.x + self.image.get_rect().width > stopLines[self.direction]:
                 self.crossed = 1
@@ -273,8 +271,8 @@ class Vehicle(pygame.sprite.Sprite):
                 if self.crossed == 0:
                     if ((self.x >= self.stop or (currentGreen == 2 and currentYellow == 0)) and (
                             self.index == 0 or self.x > (
-                            vehicles[self.direction][self.lane][self.index - 1].x + vehicles[self.direction][self.lane][
-                        self.index - 1].image.get_rect().width + movingGap))):
+                            vehicles[self.direction][self.lane][self.index - 1].x + vehicles[self.direction][self.lane]
+                            [self.index - 1].image.get_rect().width + movingGap))):
                         self.x -= self.speed
                 else:
                     if ((self.crossedIndex == 0) or (self.x > (
@@ -333,7 +331,7 @@ class Vehicle(pygame.sprite.Sprite):
                             self.image = pygame.transform.rotate(self.originalImage, -self.rotateAngle)
                             self.x += 1
                             self.y -= 1
-                            if (self.rotateAngle == 90):
+                            if self.rotateAngle == 90:
                                 self.turned = 1
                                 vehiclesTurned[self.direction][self.lane].append(self)
                                 self.crossedIndex = len(vehiclesTurned[self.direction][self.lane]) - 1
@@ -347,8 +345,8 @@ class Vehicle(pygame.sprite.Sprite):
                 if self.crossed == 0:
                     if ((self.y >= self.stop or (currentGreen == 3 and currentYellow == 0)) and (
                             self.index == 0 or self.y > (
-                            vehicles[self.direction][self.lane][self.index - 1].y + vehicles[self.direction][self.lane][
-                        self.index - 1].image.get_rect().height + movingGap))):
+                            vehicles[self.direction][self.lane][self.index - 1].y + vehicles[self.direction][self.lane]
+                            [self.index - 1].image.get_rect().height + movingGap))):
                         self.y -= self.speed
                 else:
                     if ((self.crossedIndex == 0) or (self.y > (
