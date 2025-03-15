@@ -37,6 +37,5 @@ def show_menu():
                 x, y = event.pos
                 for text, rect in buttons.items():
                     if rect[0] <= x <= rect[0] + rect[2] and rect[1] <= y <= rect[1] + rect[3]:
-                        chosen_spawn_rate = {"Low": 3, "Medium": 1, "High": 0.5}[text]
+                        chosen_spawn_rate = {"Low": 4, "Medium": 2, "High": 1}[text]
                         return chosen_spawn_rate  # Return the selected spawn rate
-

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-04 16:58:46 by Eclipse SUMO netedit Version 1.15.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="t_1" begin="0.00" from="E1" to="E7" via="-E2 E1 -E2 E1 -E2 E1 -E2 E1 -E2 E1" number="7" period="15.00"/>
+    <flow id="t_2" begin="0.00" from="E0" to="E7" via="-E2 E1 E0 -E2 E1 E0 -E2 E1 E0 -E2 E1 E0 -E2 E1" number="5" period="100.00"/>
+    <flow id="t_3" begin="0.00" from="-E0" to="E7" via="E2 -E1 -E0 E2 -E1 -E0 E2 -E1" number="7" period="100.00"/>
+    <flow id="t_4" begin="0.00" from="E3" to="E7" via="E0 E3 E0 E3 E0 E3 E0 E3 E0" number="3" period="200.00"/>
+    <flow id="t_6" begin="0.00" from="E2" to="E6" via="E3 E5 E1 -E1" number="3" period="170.00"/>
+    <flow id="t_5" begin="5.00" from="-E4" to="E7" via="E0 -E1 -E5 -E1 -E0 E5 E3 -E3 E4 E1" number="5" period="100.00"/>
+    <flow id="t_0" begin="100.00" from="E5" to="E6" via="-E4 E5 -E4 E5 -E4 E5 -E4 E5 -E4 E5" number="3" period="60.00"/>
+</routes>
