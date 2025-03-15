@@ -88,6 +88,13 @@ class DQNAgent:
         self.model.eval()  # Set to evaluation mode
         print("Model loaded successfully!")
 
+    def select_action(self, state):
+        """Chooses the best action using the trained model."""
+        state = torch.tensor(state, dtype=torch.float32).unsqueeze(0)  # Convert to tensor
+        with torch.no_grad():
+            action_values = self.model(state)  # Forward pass through the network
+        return torch.argmax(action_values).item()  # Return the best action
+
     def train(self, episodes, traffic_data):
         """Trains the DQN model using traffic data"""
         for episode in range(episodes):

@@ -3,6 +3,7 @@ import sys
 
 # UI Menu for choosing spawn rate
 def show_menu():
+
     global chosen_spawn_rate  # Ensure chosen_spawn_rate is global
     screen = pygame.display.set_mode((600, 400))
     pygame.display.set_caption("Choose Spawn Rate")
