@@ -1,5 +1,6 @@
 import traci
 import logging
+import time
 
 # Configure logging
 logging.basicConfig(filename='traffic_simulation.log', level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -11,21 +12,34 @@ def start_sumo():
 class AdaptiveTrafficLightAgent:
     def __init__(self, tls_id):
         self.tls_id = tls_id
+        self.min_phase_duration = 10  # Minimum duration for each phase
+        self.last_switch_time = time.time()
 
     def adjust_phase_duration(self):
+        current_time = time.time()
+        if current_time - self.last_switch_time < self.min_phase_duration:
+            return  # Skip adjustment if minimum duration has not elapsed
+
         lanes = traci.trafficlight.getControlledLanes(self.tls_id)
         vehicle_count = sum(traci.lane.getLastStepVehicleNumber(lane) for lane in lanes)
 
-        new_duration = max(10, min(60, vehicle_count * 2))
+        new_duration = max(self.min_phase_duration, min(60, vehicle_count * 2))
         traci.trafficlight.setPhaseDuration(self.tls_id, new_duration)
+        self.last_switch_time = current_time
         
         logging.info(f"Adaptive Agent - TLS {self.tls_id}: Vehicles: {vehicle_count}, New Duration: {new_duration}")
 
 class RuleBasedTrafficLightAgent:
     def __init__(self, tls_id):
         self.tls_id = tls_id
+        self.min_phase_duration = 10  # Minimum duration for each phase
+        self.last_switch_time = time.time()
 
     def switch_phase(self):
+        current_time = time.time()
+        if current_time - self.last_switch_time < self.min_phase_duration:
+            return  # Skip phase switch if minimum duration has not elapsed
+
         lanes = traci.trafficlight.getControlledLanes(self.tls_id)
         vehicle_count = sum(traci.lane.getLastStepVehicleNumber(lane) for lane in lanes)
 
@@ -34,13 +48,15 @@ class RuleBasedTrafficLightAgent:
         else:
             traci.trafficlight.setPhase(self.tls_id, 0)  # Assuming phase 0 is red
         
+        self.last_switch_time = current_time
         logging.info(f"Rule-Based Agent - TLS {self.tls_id}: Vehicles: {vehicle_count}, Current phase: {traci.trafficlight.getPhase(self.tls_id)}")
 
 def parse_tls_from_sumo():
     tls_list = []
     tls_ids = traci.trafficlight.getIDList()
 
-    # Assign first half of traffic lights as adaptive, rest as rule-based
+    logging.info(f"Detected {len(tls_ids)} traffic lights in SUMO.")
+
     for i, tls_id in enumerate(tls_ids):
         if i % 2 == 0:  # Alternate adaptive and rule-based
             tls_list.append(AdaptiveTrafficLightAgent(tls_id))
@@ -48,7 +64,6 @@ def parse_tls_from_sumo():
             tls_list.append(RuleBasedTrafficLightAgent(tls_id))
 
     return tls_list
-
 
 def run_simulation(steps=5000):
     try:
