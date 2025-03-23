@@ -1,15 +1,16 @@
+import os
 import random
 import sys
 import threading
 import time
+
+import matplotlib.pyplot as plt
 import pygame
+
 import config
 from config import defaultRed, defaultYellow, signals, noOfSignals
-from vehicle import vehicles, defaultStop, simulation, Vehicle
 from menuUI import show_menu  # UI for choosing spawn rate
-import matplotlib.pyplot as plt
-import os
-from datetime import datetime
+from vehicle import vehicles, defaultStop, simulation, Vehicle
 
 # Coordinates of signals and timers
 signalCoods = [(510, 230), (815, 230), (815, 570), (510, 570)]
@@ -118,6 +119,7 @@ def log_traffic_data():
     waiting_times_log.append(sum(waiting_times) / 4)  # Average waiting time
     flow_rates_log.append(sum(flow_rates))  # Total throughput
 
+
 def plot_graphs():
     """Plots graphs for Fixed-Time Traffic Signals and saves them to a folder based on spawn rate."""
 
@@ -168,6 +170,7 @@ def plot_graphs():
 
     # Show the plot
     plt.show()
+
 
 class Main:
     global allowedVehicleTypesList
