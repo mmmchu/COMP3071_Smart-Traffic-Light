@@ -1,107 +1,137 @@
 import numpy as np
 import torch
-from matplotlib import pylab as plt
 import random
 import sumo_rl
-
-from agents.ql_agent import QlAgent  # Ensure this path is correct
+import traci  # Required for direct vehicle checks
+from agents.ql_agent import QlAgent
+import matplotlib.pyplot as plt
 
 # Define networks
-network_files = ['nets/road1.net.xml', 'nets/road2.net.xml']
-route_files = ['nets/road1.rou.xml', 'nets/road2.rou.xml']
+network_files = ['nets/road1.net.xml', 'nets/road2.net.xml', 'nets/road3.net.xml']
+route_files = ['nets/road1.rou.xml', 'nets/road2.rou.xml', 'nets/road3.rou.xml']
 
-# Q-learning parameters
-gamma = 0.9
+# Load the trained model
+model_path = "trained_models/ql_model.pth"
 
-# Initialize SUMO environment
+# Initialize SUMO environment (to determine input size)
 env = sumo_rl.SumoEnvironment(
-    net_file=network_files[0],  # Use the first network file to determine input size
+    net_file=network_files[0],
     route_file=route_files[0],
-    use_gui=True,  # Set to True to visualize the simulation
+    use_gui=True,
     num_seconds=20000,
     single_agent=False
 )
 
 observations = env.reset()
 
-# Get the actual input shape dynamically from the first traffic signal
-first_ts = list(env.traffic_signals.keys())[0]  # Pick the first traffic signal
-input_shape = len(observations[first_ts])  # Get observation size
-
-# Initialize the Q-learning agent
+# **Get input shape (+1 for emergency vehicle detection)**
+first_ts = list(env.traffic_signals.keys())[0]
+input_shape = len(observations[first_ts]) + 1
 ql_agent = QlAgent(input_shape=input_shape)
 
-# Load the trained model
-combined_model_path = "trained_models/ql_model.pth"
-ql_agent.model.load_state_dict(torch.load(combined_model_path))
-ql_agent.model.eval()  # Set the model to evaluation mode
+# **Load trained model weights**
+ql_agent.model.load_state_dict(torch.load(model_path))
+ql_agent.model.eval()  # Set model to evaluation mode
 
-# Run simulation
-avg_rewards = {network_file: [] for network_file in network_files}  # Track rewards for each road
+# Function to detect emergency vehicles at a traffic signal
+def check_emergency_vehicle(ts_id):
+    """Returns the number of emergency vehicles detected in any lane controlled by the given traffic signal."""
+    try:
+        lanes = traci.trafficlight.getControlledLanes(ts_id)
+        count = sum(1 for lane in lanes for veh in traci.lane.getLastStepVehicleIDs(lane)
+                    if traci.vehicle.getTypeID(veh) == "DEFAULT_CONTAINERTYPE")
+        return count  # Return emergency vehicle count
+    except Exception as e:
+        print(f"Error checking emergency vehicle: {e}")
+    return 0  # Default to 0 if error occurs
+
+
+# **Evaluation across all networks**
+avg_rewards = []
 
 for network_file, route_file in zip(network_files, route_files):
-    print(f"Running simulation on {network_file} with {route_file}")
+    print(f"🚦 Evaluating on {network_file} with {route_file}")
 
-    # Create environment
     env = sumo_rl.SumoEnvironment(
         net_file=network_file,
         route_file=route_file,
-        use_gui=True,  # Set to True to visualize the simulation
+        use_gui=True,
         num_seconds=20000,
         single_agent=False
     )
 
     observations = env.reset()
-
-    # Select one traffic signal randomly per simulation step
-    target_ts = random.choice(list(env.traffic_signals.keys()))
-
     done = {"__all__": False}
-    i = 0
-    input_data = {}
+    step_count = 0
 
     while not done["__all__"]:
-        i += 1
+        step_count += 1
 
-        # Prepare input data (No neighbors)
-        input_data[target_ts] = torch.Tensor(observations[target_ts]).to(torch.float)
+        for ts_id in env.traffic_signals.keys():  # Evaluate all traffic signals
+            emergency_count = check_emergency_vehicle(ts_id)
+            obs_with_emergency = np.append(observations[ts_id], emergency_count)
+            input_data = torch.Tensor(obs_with_emergency).to(torch.float)
 
-        # Predict rewards
-        with torch.no_grad():
-            pred_rewards = ql_agent.predict_rewards(input_data[target_ts])
+            # **Handle emergency vehicle priority**
+            if emergency_count > 0:
+                current_phase = env.traffic_signals[ts_id].green_phase
+                valid_transitions = [key[1] for key in env.traffic_signals[ts_id].yellow_dict.keys() if key[0] == current_phase]
 
-        # Select action
-        current_phase = env.traffic_signals[target_ts].green_phase
-        valid_transitions = [key for key in env.traffic_signals[target_ts].yellow_dict.keys() if key[0] == current_phase]
-        action = random.choice(valid_transitions)[1] if valid_transitions else current_phase
+                # **Prioritize the lane with the most emergency vehicles**
+                best_emergency_action = None
+                max_emergency_lane_count = 0
 
-        # Step environment
-        observations, rewards, done, infos = env.step({target_ts: action})
+                for valid_action in valid_transitions:
+                    lanes = traci.trafficlight.getControlledLanes(ts_id)
+                    lane_emergency_counts = [sum(1 for veh in traci.lane.getLastStepVehicleIDs(lane)
+                                                 if traci.vehicle.getTypeID(veh) == "DEFAULT_CONTAINERTYPE")
+                                             for lane in lanes]
+                    if sum(lane_emergency_counts) > max_emergency_lane_count:
+                        max_emergency_lane_count = sum(lane_emergency_counts)
+                        best_emergency_action = valid_action
 
-        # Log average reward
-        avg_reward = rewards[target_ts]
-        avg_rewards[network_file].append(avg_reward)
-        print(f'Step {i}: Reward = {avg_reward}')
+                action = best_emergency_action if best_emergency_action else random.choice(valid_transitions) if valid_transitions else current_phase
+                print(f"🚨 Emergency at {ts_id}: Switching to phase {action}!")
 
-        if i > 100:
+            else:
+                # Predict Q-values and select the best action
+                with torch.no_grad():
+                    pred_rewards = ql_agent.predict_rewards(input_data)
+
+                current_phase = env.traffic_signals[ts_id].green_phase
+                best_action = torch.argmax(pred_rewards).item()
+
+                # Ensure the selected action is valid
+                valid_transitions = [key[1] for key in env.traffic_signals[ts_id].yellow_dict.keys() if key[0] == current_phase]
+                if best_action not in valid_transitions:
+                    print(f"⚠️ Invalid action {best_action} for {ts_id}. Selecting a valid one.")
+                    action = random.choice(valid_transitions) if valid_transitions else current_phase
+                else:
+                    action = best_action
+
+            # Step in the SUMO environment
+            observations, rewards, done, infos = env.step({ts_id: action})
+
+            # **Modify rewards for emergency vehicles**
+            if emergency_count > 0:
+                if action == env.traffic_signals[ts_id].green_phase:
+                    rewards[ts_id] += 10 * emergency_count  # Reward for allowing emergency vehicles
+                else:
+                    rewards[ts_id] -= 10 * emergency_count  # Penalty for blocking
+
+            avg_rewards.append(rewards[ts_id])
+            print(f"Step {step_count}, Signal {ts_id}: Reward = {rewards[ts_id]}")
+
+        # Stop after a certain number of steps
+        if step_count > 500:
             break
-
-        input_data[target_ts] = torch.Tensor(observations[target_ts]).to(torch.float)
 
     env.close()
 
-# Plot simulation rewards for each road
-fig, ax = plt.subplots(1, 1)
-ax.set_xlabel("Simulation Steps")
-ax.set_ylabel("Reward")
-fig.set_size_inches(9, 5)
-
-# Define colors for each road
-colors = ['b', 'g', 'r', 'c', 'm', 'y']
-
-for idx, (network_file, rewards) in enumerate(avg_rewards.items()):
-    ax.scatter(np.arange(len(rewards)), rewards, color=colors[idx % len(colors)], label=network_file)
-
-plt.title("Simulation Rewards for Combined Model")
-plt.legend()  # Add a legend to distinguish roads
+# **Plot evaluation rewards**
+plt.figure(figsize=(9, 5))
+plt.xlabel("Evaluation Steps")
+plt.ylabel("Reward")
+plt.scatter(np.arange(len(avg_rewards)), avg_rewards, color='b', alpha=0.5)
+plt.title("Evaluation Rewards for Trained Q-Learning Model")
 plt.show()

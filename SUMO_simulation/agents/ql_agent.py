@@ -26,7 +26,6 @@ class QlAgent:
         obs_size = observations.shape[0]  # Get actual input size
 
         if obs_size != self.input_shape:
-
             if obs_size < self.input_shape:
                 # Pad with -1 (or 0) if the input is smaller
                 observations = torch.cat([observations, torch.full((self.input_shape - obs_size,), -1.0)])
@@ -36,10 +35,15 @@ class QlAgent:
 
         return self.model(observations)
 
-    def learn(self, pred_reward, actual_reward):
-        """Perform backpropagation and update the model."""
+    def learn(self, pred_reward, actual_reward, emergency_present):
+        """Perform backpropagation and update the model with emergency handling."""
         self.optimizer.zero_grad()
         loss = self.loss_fn(pred_reward, actual_reward)
+
+        # **Increase penalty if emergency vehicle is waiting**
+        if emergency_present:
+            loss *= 1.5  # Increase loss impact to prioritize emergency clearance
+
         loss.backward()
         self.optimizer.step()
 
