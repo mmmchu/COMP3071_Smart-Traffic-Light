@@ -1,0 +1,832 @@
+2025-04-10 17:20:15,911 - INFO - 
+==================================================
+Training on road1.net
+==================================================
+2025-04-10 17:20:40,815 - INFO - 
+==================================================
+Training on road1.net
+==================================================
+2025-04-10 17:20:42,947 - INFO - Initialized new agent for J1
+2025-04-10 17:20:42,947 - INFO - Initialized new agent for J2
+2025-04-10 17:20:42,947 - INFO - Initialized new agent for J3
+2025-04-10 17:20:42,947 - INFO - Initialized new agent for J4
+2025-04-10 17:20:42,961 - INFO - Initialized new agent for J5
+2025-04-10 17:20:42,961 - INFO - Initialized new agent for J6
+2025-04-10 17:20:42,961 - INFO - Initialized new agent for J7
+2025-04-10 17:20:42,963 - INFO - 
+Epoch 1/10 | Current epsilon: 1.000
+2025-04-10 17:20:44,111 - INFO - Observations keys: ['J1']
+2025-04-10 17:20:44,111 - INFO - Available signals for training: ['J1']
+2025-04-10 17:20:44,791 - INFO - 
+Step 100/3000
+2025-04-10 17:20:44,791 - INFO - J1 - Avg Reward (last 100): -0.10
+2025-04-10 17:20:45,493 - INFO - 
+Step 200/3000
+2025-04-10 17:20:45,493 - INFO - J1 - Avg Reward (last 100): -0.05
+2025-04-10 17:20:46,076 - INFO - 
+Step 300/3000
+2025-04-10 17:20:46,076 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:20:46,658 - INFO - 
+Step 400/3000
+2025-04-10 17:20:46,658 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:20:47,226 - INFO - 
+Step 500/3000
+2025-04-10 17:20:47,226 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:20:47,808 - INFO - 
+Step 600/3000
+2025-04-10 17:20:47,808 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:20:47,891 - INFO - Saved best model for J1 (reward: -0.03)
+2025-04-10 17:20:53,687 - INFO - Comparison for J1: Current Model Reward = -1.6653345369377348e-16, Best Model Reward = 1.734723475976807e-17
+2025-04-10 17:20:53,687 - INFO - 
+Epoch 2/10 | Current epsilon: 0.995
+2025-04-10 17:20:54,787 - INFO - Observations keys: ['J1']
+2025-04-10 17:20:54,803 - INFO - Available signals for training: ['J1']
+2025-04-10 17:20:55,749 - INFO - 
+Step 100/3000
+2025-04-10 17:20:55,749 - INFO - J1 - Avg Reward (last 100): -0.09
+2025-04-10 17:20:56,548 - INFO - 
+Step 200/3000
+2025-04-10 17:20:56,548 - INFO - J1 - Avg Reward (last 100): -0.07
+2025-04-10 17:20:57,165 - INFO - 
+Step 300/3000
+2025-04-10 17:20:57,165 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:20:57,816 - INFO - 
+Step 400/3000
+2025-04-10 17:20:57,816 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:20:58,415 - INFO - 
+Step 500/3000
+2025-04-10 17:20:58,415 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:20:59,047 - INFO - 
+Step 600/3000
+2025-04-10 17:20:59,047 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:04,909 - INFO - Comparison for J1: Current Model Reward = -1.942890293094024e-16, Best Model Reward = 5.551115123125783e-17
+2025-04-10 17:21:04,909 - INFO - 
+Epoch 3/10 | Current epsilon: 0.990
+2025-04-10 17:21:06,037 - INFO - Observations keys: ['J1']
+2025-04-10 17:21:06,037 - INFO - Available signals for training: ['J1']
+2025-04-10 17:21:06,937 - INFO - 
+Step 100/3000
+2025-04-10 17:21:06,937 - INFO - J1 - Avg Reward (last 100): -0.10
+2025-04-10 17:21:07,690 - INFO - 
+Step 200/3000
+2025-04-10 17:21:07,690 - INFO - J1 - Avg Reward (last 100): -0.06
+2025-04-10 17:21:08,339 - INFO - 
+Step 300/3000
+2025-04-10 17:21:08,339 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:21:08,989 - INFO - 
+Step 400/3000
+2025-04-10 17:21:08,989 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:09,605 - INFO - 
+Step 500/3000
+2025-04-10 17:21:09,605 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:10,221 - INFO - 
+Step 600/3000
+2025-04-10 17:21:10,221 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:15,866 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 2.7755575615628914e-17
+2025-04-10 17:21:15,866 - INFO - 
+Epoch 4/10 | Current epsilon: 0.985
+2025-04-10 17:21:16,964 - INFO - Observations keys: ['J1']
+2025-04-10 17:21:16,980 - INFO - Available signals for training: ['J1']
+2025-04-10 17:21:17,992 - INFO - 
+Step 100/3000
+2025-04-10 17:21:17,992 - INFO - J1 - Avg Reward (last 100): -0.11
+2025-04-10 17:21:18,763 - INFO - 
+Step 200/3000
+2025-04-10 17:21:18,763 - INFO - J1 - Avg Reward (last 100): -0.06
+2025-04-10 17:21:19,461 - INFO - 
+Step 300/3000
+2025-04-10 17:21:19,461 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:20,128 - INFO - 
+Step 400/3000
+2025-04-10 17:21:20,128 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:20,893 - INFO - 
+Step 500/3000
+2025-04-10 17:21:20,893 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:21,642 - INFO - 
+Step 600/3000
+2025-04-10 17:21:21,642 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:27,422 - INFO - Comparison for J1: Current Model Reward = -2.220446049250313e-16, Best Model Reward = 0.0
+2025-04-10 17:21:27,422 - INFO - 
+Epoch 5/10 | Current epsilon: 0.980
+2025-04-10 17:21:28,538 - INFO - Observations keys: ['J1']
+2025-04-10 17:21:28,553 - INFO - Available signals for training: ['J1']
+2025-04-10 17:21:29,483 - INFO - 
+Step 100/3000
+2025-04-10 17:21:29,483 - INFO - J1 - Avg Reward (last 100): -0.10
+2025-04-10 17:21:30,234 - INFO - 
+Step 200/3000
+2025-04-10 17:21:30,234 - INFO - J1 - Avg Reward (last 100): -0.05
+2025-04-10 17:21:30,835 - INFO - 
+Step 300/3000
+2025-04-10 17:21:30,835 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:31,467 - INFO - 
+Step 400/3000
+2025-04-10 17:21:31,467 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:32,051 - INFO - 
+Step 500/3000
+2025-04-10 17:21:32,051 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:32,650 - INFO - 
+Step 600/3000
+2025-04-10 17:21:32,650 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:32,719 - INFO - Saved best model for J1 (reward: -0.02)
+2025-04-10 17:21:38,711 - INFO - Comparison for J1: Current Model Reward = 2.914335439641036e-16, Best Model Reward = 5.551115123125783e-17
+2025-04-10 17:21:38,711 - INFO - 
+Epoch 6/10 | Current epsilon: 0.975
+2025-04-10 17:21:39,835 - INFO - Observations keys: ['J1']
+2025-04-10 17:21:39,835 - INFO - Available signals for training: ['J1']
+2025-04-10 17:21:40,712 - INFO - 
+Step 100/3000
+2025-04-10 17:21:40,712 - INFO - J1 - Avg Reward (last 100): -0.09
+2025-04-10 17:21:41,491 - INFO - 
+Step 200/3000
+2025-04-10 17:21:41,491 - INFO - J1 - Avg Reward (last 100): -0.08
+2025-04-10 17:21:42,089 - INFO - 
+Step 300/3000
+2025-04-10 17:21:42,089 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:21:42,722 - INFO - 
+Step 400/3000
+2025-04-10 17:21:42,722 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:43,390 - INFO - 
+Step 500/3000
+2025-04-10 17:21:43,390 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:44,021 - INFO - 
+Step 600/3000
+2025-04-10 17:21:44,021 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:49,716 - INFO - Comparison for J1: Current Model Reward = 8.326672684688674e-17, Best Model Reward = -4.163336342344337e-17
+2025-04-10 17:21:49,716 - INFO - 
+Epoch 7/10 | Current epsilon: 0.970
+2025-04-10 17:21:50,834 - INFO - Observations keys: ['J1']
+2025-04-10 17:21:50,834 - INFO - Available signals for training: ['J1']
+2025-04-10 17:21:51,744 - INFO - 
+Step 100/3000
+2025-04-10 17:21:51,744 - INFO - J1 - Avg Reward (last 100): -0.15
+2025-04-10 17:21:52,497 - INFO - 
+Step 200/3000
+2025-04-10 17:21:52,497 - INFO - J1 - Avg Reward (last 100): -0.07
+2025-04-10 17:21:53,097 - INFO - 
+Step 300/3000
+2025-04-10 17:21:53,097 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:21:53,696 - INFO - 
+Step 400/3000
+2025-04-10 17:21:53,696 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:54,296 - INFO - 
+Step 500/3000
+2025-04-10 17:21:54,296 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:21:54,896 - INFO - 
+Step 600/3000
+2025-04-10 17:21:54,896 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:00,624 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:22:00,624 - INFO - 
+Epoch 8/10 | Current epsilon: 0.966
+2025-04-10 17:22:01,749 - INFO - Observations keys: ['J1']
+2025-04-10 17:22:01,764 - INFO - Available signals for training: ['J1']
+2025-04-10 17:22:02,688 - INFO - 
+Step 100/3000
+2025-04-10 17:22:02,688 - INFO - J1 - Avg Reward (last 100): -0.12
+2025-04-10 17:22:03,503 - INFO - 
+Step 200/3000
+2025-04-10 17:22:03,503 - INFO - J1 - Avg Reward (last 100): -0.06
+2025-04-10 17:22:04,119 - INFO - 
+Step 300/3000
+2025-04-10 17:22:04,120 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:04,770 - INFO - 
+Step 400/3000
+2025-04-10 17:22:04,770 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:05,402 - INFO - 
+Step 500/3000
+2025-04-10 17:22:05,402 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:06,019 - INFO - 
+Step 600/3000
+2025-04-10 17:22:06,019 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:11,780 - INFO - Comparison for J1: Current Model Reward = 1.3877787807814457e-17, Best Model Reward = 5.551115123125783e-17
+2025-04-10 17:22:11,780 - INFO - 
+Epoch 9/10 | Current epsilon: 0.961
+2025-04-10 17:22:12,905 - INFO - Observations keys: ['J1']
+2025-04-10 17:22:12,919 - INFO - Available signals for training: ['J1']
+2025-04-10 17:22:13,827 - INFO - 
+Step 100/3000
+2025-04-10 17:22:13,843 - INFO - J1 - Avg Reward (last 100): -0.09
+2025-04-10 17:22:14,644 - INFO - 
+Step 200/3000
+2025-04-10 17:22:14,644 - INFO - J1 - Avg Reward (last 100): -0.08
+2025-04-10 17:22:15,227 - INFO - 
+Step 300/3000
+2025-04-10 17:22:15,227 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:15,842 - INFO - 
+Step 400/3000
+2025-04-10 17:22:15,842 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:16,492 - INFO - 
+Step 500/3000
+2025-04-10 17:22:16,492 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:17,092 - INFO - 
+Step 600/3000
+2025-04-10 17:22:17,092 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:22,819 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 5.551115123125783e-17
+2025-04-10 17:22:22,819 - INFO - 
+Epoch 10/10 | Current epsilon: 0.956
+2025-04-10 17:22:23,948 - INFO - Observations keys: ['J1']
+2025-04-10 17:22:23,948 - INFO - Available signals for training: ['J1']
+2025-04-10 17:22:24,950 - INFO - 
+Step 100/3000
+2025-04-10 17:22:24,950 - INFO - J1 - Avg Reward (last 100): -0.11
+2025-04-10 17:22:25,632 - INFO - 
+Step 200/3000
+2025-04-10 17:22:25,632 - INFO - J1 - Avg Reward (last 100): -0.07
+2025-04-10 17:22:26,249 - INFO - 
+Step 300/3000
+2025-04-10 17:22:26,249 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:26,832 - INFO - 
+Step 400/3000
+2025-04-10 17:22:26,832 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:27,448 - INFO - 
+Step 500/3000
+2025-04-10 17:22:27,448 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:28,047 - INFO - 
+Step 600/3000
+2025-04-10 17:22:28,047 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:33,744 - INFO - Comparison for J1: Current Model Reward = 8.326672684688674e-17, Best Model Reward = -2.2551405187698492e-17
+2025-04-10 17:22:34,005 - INFO - 
+==================================================
+Training on road2.net
+==================================================
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J1
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J2
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J3
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J4
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J5
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J6
+2025-04-10 17:22:34,612 - INFO - Initialized new agent for J7
+2025-04-10 17:22:34,612 - INFO - 
+Epoch 1/10 | Current epsilon: 1.000
+2025-04-10 17:22:35,740 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:35,740 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:35,832 - INFO - 
+Epoch 2/10 | Current epsilon: 1.000
+2025-04-10 17:22:36,957 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:36,957 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:37,030 - INFO - 
+Epoch 3/10 | Current epsilon: 1.000
+2025-04-10 17:22:38,159 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:38,159 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:38,230 - INFO - 
+Epoch 4/10 | Current epsilon: 1.000
+2025-04-10 17:22:39,367 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:39,367 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:39,446 - INFO - 
+Epoch 5/10 | Current epsilon: 1.000
+2025-04-10 17:22:40,573 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:40,573 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:40,641 - INFO - 
+Epoch 6/10 | Current epsilon: 1.000
+2025-04-10 17:22:41,770 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:41,770 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:41,839 - INFO - 
+Epoch 7/10 | Current epsilon: 1.000
+2025-04-10 17:22:42,965 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:42,965 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:43,036 - INFO - 
+Epoch 8/10 | Current epsilon: 1.000
+2025-04-10 17:22:44,145 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:44,145 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:44,219 - INFO - 
+Epoch 9/10 | Current epsilon: 1.000
+2025-04-10 17:22:45,352 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:45,352 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:45,417 - INFO - 
+Epoch 10/10 | Current epsilon: 1.000
+2025-04-10 17:22:46,527 - INFO - Observations keys: ['TL']
+2025-04-10 17:22:46,527 - ERROR - No available signals found in environment for network road2.net. Skipping training on this network.
+2025-04-10 17:22:46,695 - INFO - 
+==================================================
+Training on road3.net
+==================================================
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J1
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J2
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J3
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J4
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J5
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J6
+2025-04-10 17:22:47,315 - INFO - Initialized new agent for J7
+2025-04-10 17:22:47,315 - INFO - 
+Epoch 1/10 | Current epsilon: 1.000
+2025-04-10 17:22:48,535 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:22:48,536 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:22:50,826 - INFO - 
+Step 100/3000
+2025-04-10 17:22:50,826 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:50,826 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:50,826 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:50,826 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:50,826 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:22:53,930 - INFO - 
+Step 200/3000
+2025-04-10 17:22:53,930 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:53,930 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:53,930 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:53,930 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:53,930 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:57,062 - INFO - 
+Step 300/3000
+2025-04-10 17:22:57,062 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:57,062 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:57,062 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:57,062 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:22:57,062 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:00,202 - INFO - 
+Step 400/3000
+2025-04-10 17:23:00,203 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:00,205 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:00,205 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:00,205 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:00,206 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:03,431 - INFO - 
+Step 500/3000
+2025-04-10 17:23:03,432 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:03,432 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:03,433 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:03,433 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:03,433 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,651 - INFO - 
+Step 600/3000
+2025-04-10 17:23:06,651 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,651 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,652 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,652 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,652 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:23:06,716 - INFO - Saved best model for J1 (reward: -0.00)
+2025-04-10 17:23:20,026 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:23:20,032 - INFO - Saved best model for J4 (reward: -0.00)
+2025-04-10 17:23:33,282 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:23:33,285 - INFO - Saved best model for J5 (reward: -0.00)
+2025-04-10 17:23:46,720 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:23:46,734 - INFO - Saved best model for J6 (reward: -0.00)
+2025-04-10 17:24:00,058 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:24:00,060 - INFO - Saved best model for J7 (reward: -0.00)
+2025-04-10 17:24:13,392 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:24:13,392 - INFO - 
+Epoch 2/10 | Current epsilon: 0.995
+2025-04-10 17:24:14,554 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:24:14,554 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:24:17,748 - INFO - 
+Step 100/3000
+2025-04-10 17:24:17,748 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:24:17,748 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:24:17,761 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:24:17,761 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:24:17,762 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:24:21,098 - INFO - 
+Step 200/3000
+2025-04-10 17:24:21,098 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:21,098 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:21,098 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:21,098 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:21,098 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:24,239 - INFO - 
+Step 300/3000
+2025-04-10 17:24:24,239 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:24,240 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:24,240 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:24,240 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:24,240 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:27,453 - INFO - 
+Step 400/3000
+2025-04-10 17:24:27,453 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:27,453 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:27,453 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:27,453 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:27,453 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:30,771 - INFO - 
+Step 500/3000
+2025-04-10 17:24:30,771 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:30,771 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:30,771 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:30,771 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:30,771 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,064 - INFO - 
+Step 600/3000
+2025-04-10 17:24:34,064 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,064 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,064 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,064 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,064 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:24:34,135 - INFO - Saved best model for J1 (reward: -0.00)
+2025-04-10 17:24:47,344 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:25:00,532 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:25:14,237 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:25:14,240 - INFO - Saved best model for J6 (reward: -0.00)
+2025-04-10 17:25:27,607 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:25:40,795 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:25:40,795 - INFO - 
+Epoch 3/10 | Current epsilon: 0.990
+2025-04-10 17:25:41,956 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:25:41,956 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:25:45,154 - INFO - 
+Step 100/3000
+2025-04-10 17:25:45,154 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:25:45,154 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:25:45,154 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:25:45,154 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:25:45,154 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:25:48,395 - INFO - 
+Step 200/3000
+2025-04-10 17:25:48,395 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:48,395 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:48,395 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:48,395 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:48,395 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:51,710 - INFO - 
+Step 300/3000
+2025-04-10 17:25:51,710 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:51,710 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:51,710 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:51,710 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:51,710 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:54,961 - INFO - 
+Step 400/3000
+2025-04-10 17:25:54,962 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:54,962 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:54,962 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:54,962 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:54,962 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:58,301 - INFO - 
+Step 500/3000
+2025-04-10 17:25:58,303 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:58,303 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:58,304 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:58,304 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:25:58,304 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:01,585 - INFO - 
+Step 600/3000
+2025-04-10 17:26:01,585 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:01,585 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:01,585 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:01,585 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:01,585 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:26:14,798 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:26:14,811 - INFO - Saved best model for J4 (reward: -0.00)
+2025-04-10 17:26:28,050 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:26:42,187 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:26:56,505 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:26:56,510 - INFO - Saved best model for J7 (reward: -0.00)
+2025-04-10 17:27:11,976 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:27:11,976 - INFO - 
+Epoch 4/10 | Current epsilon: 0.985
+2025-04-10 17:27:13,119 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:27:13,119 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:27:16,719 - INFO - 
+Step 100/3000
+2025-04-10 17:27:16,719 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:27:16,719 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:27:16,719 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:27:16,719 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:27:16,719 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:27:20,163 - INFO - 
+Step 200/3000
+2025-04-10 17:27:20,163 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:20,163 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:20,163 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:20,163 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:20,163 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:23,938 - INFO - 
+Step 300/3000
+2025-04-10 17:27:23,938 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:23,938 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:23,938 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:23,938 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:23,938 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:27,241 - INFO - 
+Step 400/3000
+2025-04-10 17:27:27,241 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:27,241 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:27,241 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:27,241 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:27,241 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:30,317 - INFO - 
+Step 500/3000
+2025-04-10 17:27:30,317 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:30,317 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:30,332 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:30,332 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:30,332 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:33,994 - INFO - 
+Step 600/3000
+2025-04-10 17:27:33,995 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:33,995 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:33,995 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:33,995 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:33,995 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:27:47,860 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:27:47,876 - INFO - Saved best model for J4 (reward: -0.00)
+2025-04-10 17:28:01,780 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:28:15,354 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:28:28,591 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:28:41,764 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:28:41,764 - INFO - 
+Epoch 5/10 | Current epsilon: 0.980
+2025-04-10 17:28:42,914 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:28:42,914 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:28:46,045 - INFO - 
+Step 100/3000
+2025-04-10 17:28:46,046 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:28:46,047 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:28:46,047 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:28:46,047 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:28:46,047 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:28:49,463 - INFO - 
+Step 200/3000
+2025-04-10 17:28:49,464 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:49,464 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:49,464 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:49,465 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:49,465 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:52,807 - INFO - 
+Step 300/3000
+2025-04-10 17:28:52,822 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:52,822 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:52,822 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:52,822 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:52,822 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:56,059 - INFO - 
+Step 400/3000
+2025-04-10 17:28:56,059 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:56,059 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:56,059 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:56,059 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:56,059 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:59,303 - INFO - 
+Step 500/3000
+2025-04-10 17:28:59,304 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:59,304 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:59,304 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:59,304 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:28:59,304 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:02,600 - INFO - 
+Step 600/3000
+2025-04-10 17:29:02,600 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:02,600 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:02,600 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:02,600 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:02,600 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:29:15,894 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:29:29,579 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:29:29,582 - INFO - Saved best model for J5 (reward: -0.00)
+2025-04-10 17:29:43,778 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:29:57,540 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:30:12,107 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:30:12,107 - INFO - 
+Epoch 6/10 | Current epsilon: 0.975
+2025-04-10 17:30:13,261 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:30:13,263 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:30:16,648 - INFO - 
+Step 100/3000
+2025-04-10 17:30:16,649 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:30:16,649 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:30:16,649 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:30:16,649 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:30:16,649 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:30:20,639 - INFO - 
+Step 200/3000
+2025-04-10 17:30:20,639 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:20,639 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:20,639 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:20,639 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:20,640 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:23,926 - INFO - 
+Step 300/3000
+2025-04-10 17:30:23,926 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:23,926 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:23,931 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:23,931 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:23,931 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:27,320 - INFO - 
+Step 400/3000
+2025-04-10 17:30:27,320 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:27,322 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:27,322 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:27,322 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:27,323 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:30,583 - INFO - 
+Step 500/3000
+2025-04-10 17:30:30,583 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:30,584 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:30,584 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:30,584 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:30,584 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:34,051 - INFO - 
+Step 600/3000
+2025-04-10 17:30:34,051 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:34,051 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:34,051 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:34,051 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:34,051 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:30:47,411 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:31:00,947 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:31:14,548 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:31:28,358 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:31:41,558 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:31:41,558 - INFO - 
+Epoch 7/10 | Current epsilon: 0.970
+2025-04-10 17:31:42,688 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:31:42,703 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:31:45,785 - INFO - 
+Step 100/3000
+2025-04-10 17:31:45,785 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:31:45,785 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:31:45,785 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:31:45,785 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:31:45,785 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:31:49,091 - INFO - 
+Step 200/3000
+2025-04-10 17:31:49,091 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:49,093 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:49,093 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:49,093 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:49,093 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:52,361 - INFO - 
+Step 300/3000
+2025-04-10 17:31:52,361 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:52,361 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:52,361 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:52,361 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:52,361 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:55,518 - INFO - 
+Step 400/3000
+2025-04-10 17:31:55,518 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:55,518 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:55,529 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:55,529 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:55,529 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:58,622 - INFO - 
+Step 500/3000
+2025-04-10 17:31:58,622 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:58,622 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:58,622 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:58,622 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:31:58,622 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:01,846 - INFO - 
+Step 600/3000
+2025-04-10 17:32:01,846 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:01,846 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:01,846 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:01,846 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:01,846 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:32:23,936 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:32:49,983 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:33:18,225 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:33:43,681 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:34:08,781 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:34:08,783 - INFO - 
+Epoch 8/10 | Current epsilon: 0.966
+2025-04-10 17:34:10,016 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:34:10,017 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:34:16,174 - INFO - 
+Step 100/3000
+2025-04-10 17:34:16,175 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:34:16,175 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:34:16,176 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:34:16,177 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:34:16,178 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:34:23,319 - INFO - 
+Step 200/3000
+2025-04-10 17:34:23,319 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:23,321 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:23,321 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:23,322 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:23,322 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:30,201 - INFO - 
+Step 300/3000
+2025-04-10 17:34:30,202 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:30,203 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:30,203 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:30,204 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:30,204 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:37,385 - INFO - 
+Step 400/3000
+2025-04-10 17:34:37,385 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:37,387 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:37,388 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:37,388 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:37,388 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:44,018 - INFO - 
+Step 500/3000
+2025-04-10 17:34:44,018 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:44,018 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:44,018 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:44,018 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:44,018 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:51,038 - INFO - 
+Step 600/3000
+2025-04-10 17:34:51,040 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:51,040 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:51,040 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:51,041 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:34:51,041 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:35:16,914 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:35:16,917 - INFO - Saved best model for J4 (reward: -0.00)
+2025-04-10 17:35:42,089 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:35:42,094 - INFO - Saved best model for J5 (reward: -0.00)
+2025-04-10 17:36:08,358 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:36:34,153 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:36:59,222 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:36:59,224 - INFO - 
+Epoch 9/10 | Current epsilon: 0.961
+2025-04-10 17:37:00,431 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:37:00,431 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:37:07,437 - INFO - 
+Step 100/3000
+2025-04-10 17:37:07,438 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:37:07,438 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:37:07,438 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:37:07,438 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:37:07,439 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:37:14,491 - INFO - 
+Step 200/3000
+2025-04-10 17:37:14,491 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:14,492 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:14,492 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:14,493 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:14,493 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:21,985 - INFO - 
+Step 300/3000
+2025-04-10 17:37:21,986 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:21,987 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:21,987 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:21,987 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:21,987 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:29,237 - INFO - 
+Step 400/3000
+2025-04-10 17:37:29,237 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:29,237 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:29,239 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:29,239 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:29,240 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:36,659 - INFO - 
+Step 500/3000
+2025-04-10 17:37:36,659 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:36,659 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:36,659 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:36,659 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:36,659 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:43,691 - INFO - 
+Step 600/3000
+2025-04-10 17:37:43,692 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:43,692 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:43,692 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:43,693 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:37:43,693 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:38:11,187 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:38:36,747 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:39:06,922 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:39:33,374 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:40:00,022 - INFO - Comparison for J7: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:40:00,022 - INFO - 
+Epoch 10/10 | Current epsilon: 0.956
+2025-04-10 17:40:01,236 - INFO - Observations keys: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:40:01,236 - INFO - Available signals for training: ['J1', 'J4', 'J5', 'J6', 'J7']
+2025-04-10 17:40:09,284 - INFO - 
+Step 100/3000
+2025-04-10 17:40:09,285 - INFO - J1 - Avg Reward (last 100): -0.00
+2025-04-10 17:40:09,285 - INFO - J4 - Avg Reward (last 100): -0.00
+2025-04-10 17:40:09,286 - INFO - J5 - Avg Reward (last 100): -0.00
+2025-04-10 17:40:09,286 - INFO - J6 - Avg Reward (last 100): -0.00
+2025-04-10 17:40:09,286 - INFO - J7 - Avg Reward (last 100): -0.00
+2025-04-10 17:40:16,482 - INFO - 
+Step 200/3000
+2025-04-10 17:40:16,483 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:16,483 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:16,484 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:16,484 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:16,484 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:23,700 - INFO - 
+Step 300/3000
+2025-04-10 17:40:23,707 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:23,708 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:23,708 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:23,708 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:23,708 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:31,401 - INFO - 
+Step 400/3000
+2025-04-10 17:40:31,402 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:31,403 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:31,404 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:31,404 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:31,405 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:39,120 - INFO - 
+Step 500/3000
+2025-04-10 17:40:39,120 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:39,120 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:39,120 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:39,123 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:39,123 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:42,767 - INFO - 
+Step 600/3000
+2025-04-10 17:40:42,767 - INFO - J1 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:42,767 - INFO - J4 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:42,767 - INFO - J5 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:42,767 - INFO - J6 - Avg Reward (last 100): 0.00
+2025-04-10 17:40:42,767 - INFO - J7 - Avg Reward (last 100): 0.00
+2025-04-10 17:41:05,190 - INFO - Comparison for J1: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:41:30,510 - INFO - Comparison for J4: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:41:56,063 - INFO - Comparison for J5: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:42:22,548 - INFO - Comparison for J6: Current Model Reward = 0.0, Best Model Reward = 0.0
+2025-04-10 17:42:48,525 - INFO - Comparison for J7: Current Model Reward = -1.0, Best Model Reward = 0.0
