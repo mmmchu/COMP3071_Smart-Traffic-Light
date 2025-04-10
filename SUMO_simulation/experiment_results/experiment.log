@@ -1,0 +1,51 @@
+2025-04-10 18:28:46,422 - INFO - Network file: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.net.xml
+2025-04-10 18:28:46,436 - INFO - Route file: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.rou.xml
+2025-04-10 18:28:46,436 - INFO - Model file: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\trained_models\ql_model_final_road1.net_J1.pth
+2025-04-10 18:28:46,436 - INFO - Output directory: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846
+2025-04-10 18:28:46,436 - INFO - Starting experiment with:
+2025-04-10 18:28:46,436 - INFO - Network file: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.net.xml
+2025-04-10 18:28:46,436 - INFO - Route file: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.rou.xml
+2025-04-10 18:28:46,436 - INFO - Model path: C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\trained_models\ql_model_final_road1.net_J1.pth
+2025-04-10 18:28:46,436 - INFO - Route file contents:
+2025-04-10 18:28:46,436 - INFO - <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-04 16:58:46 by Eclipse SUMO netedit Version 1.15.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="t_1" begin="0.00" from="E1" to="E7" via="-E2 E1 -E2 E1 -E2 E1 -E2 E1 -E2 E1" number="7" period="15.00"/>
+    <flow id="t_2" begin="0.00" from="E0" to="E7" via="-E2 E1 E0 -E2 E1 E0 -E2 E1 E0 -E2 E1 E0 -E2 E1" number="5" period="100.00"/>
+    <flow id="t_3" begin="0.00" from="-E0" to="E7" via="E2 -E1 -E0 E2 -E1 -E0 E2 -E1" number="7" period="100.00"/>
+    <flow id="t_4" begin="0.00" from="E3" to="E7" via="E0 E3 E0 E3 E0 E3 E0 E3 E0" number="3" period="200.00"/>
+    <flow id="t_6" begin="0.00" from="E2" to="E6" via="E3 E5 E1 -E1" number="3" period="170.00"/>
+    <flow id="t_5" begin="5.00" from="-E4" to="E7" via="E0 -E1 -E5 -E1 -E0 E5 E3 -E3 E4 E1" number="5" period="100.00"/>
+    <flow id="t_0" begin="100.00" from="E5" to="E6" via="-E4 E5 -E4 E5 -E4 E5 -E4 E5 -E4 E5" number="3" period="60.00"/>
+</routes>
+
+2025-04-10 18:28:46,436 - INFO - Creating SUMO environment...
+2025-04-10 18:28:47,216 - INFO - SUMO environment created successfully
+2025-04-10 18:28:48,784 - INFO - Model input shape: 11, Checkpoint input shape: 11
+2025-04-10 18:28:48,784 - INFO - Successfully loaded model from C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\trained_models\ql_model_final_road1.net_J1.pth
+2025-04-10 18:28:48,786 - INFO - Starting episode 1/5
+2025-04-10 18:28:49,341 - INFO - Step 0: Action={'J1': 1}, Reward={'J1': 0.0}
+2025-04-10 18:28:49,344 - INFO - Step 0 metrics:
+2025-04-10 18:28:49,344 - INFO - Vehicles: 5
+2025-04-10 18:28:49,344 - INFO - Waiting time: 0.00
+2025-04-10 18:28:49,344 - INFO - Queue length: 0
+2025-04-10 18:28:49,345 - INFO - Average speed: 6.92
+2025-04-10 18:28:49,345 - INFO - Emergency vehicles: 0
+2025-04-10 18:28:49,910 - INFO - Saved metrics to C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846\metrics_episode_1.csv
+2025-04-10 18:28:49,911 - INFO - Starting episode 2/5
+2025-04-10 18:28:50,516 - INFO - Step 0: Action={'J1': 1}, Reward={'J1': 0.0}
+2025-04-10 18:28:50,776 - INFO - Saved metrics to C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846\metrics_episode_2.csv
+2025-04-10 18:28:50,776 - INFO - Starting episode 3/5
+2025-04-10 18:28:51,378 - INFO - Step 0: Action={'J1': 1}, Reward={'J1': 0.0}
+2025-04-10 18:28:51,644 - INFO - Saved metrics to C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846\metrics_episode_3.csv
+2025-04-10 18:28:51,646 - INFO - Starting episode 4/5
+2025-04-10 18:28:52,249 - INFO - Step 0: Action={'J1': 1}, Reward={'J1': 0.0}
+2025-04-10 18:28:52,490 - INFO - Saved metrics to C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846\metrics_episode_4.csv
+2025-04-10 18:28:52,490 - INFO - Starting episode 5/5
+2025-04-10 18:28:53,109 - INFO - Step 0: Action={'J1': 1}, Reward={'J1': 0.0}
+2025-04-10 18:28:53,348 - INFO - Saved metrics to C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\experiment_results\road1_J1_20250410-182846\metrics_episode_5.csv
+2025-04-10 18:28:53,416 - INFO - Experiment completed

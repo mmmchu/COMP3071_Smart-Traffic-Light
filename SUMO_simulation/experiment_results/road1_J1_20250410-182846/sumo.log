@@ -1,0 +1,18 @@
+***Starting server on port 56821 ***
+Loading net-file from 'C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.net.xml' ... done (6ms).
+Loading route-files incrementally from 'C:\Users\user\coding\DIA-TrafficLight\COMP3071_Smart-Traffic-Light\SUMO_simulation\nets\road1.rou.xml'
+Loading done.
+Simulation version 1.22.0 started with time: 0.00.
+Simulation ended at time: 5.00.
+Reason: TraCI requested termination.
+Performance:
+ Duration: 0.26s
+ TraCI-Duration: 0.01s
+ Real time factor: 19.3798
+ UPS: 96.899225
+Vehicles:
+ Inserted: 5
+ Running: 5
+ Waiting: 0
+DijkstraRouter answered 50 queries and explored 5.12 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
