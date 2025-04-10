@@ -143,9 +143,20 @@ def compare_models(current_agent: QlAgent, best_model_path: str, env: Any, ts_id
     best_performance = evaluate_model(best_agent, env, ts_id, saved_input_shape)
     logging.info(f"Comparison for {ts_id}: Current Model Reward = {current_performance}, Best Model Reward = {best_performance}")
 
+def get_max_state_dim(networks: List[Dict[str, str]]) -> int:
+    """
+    Determine the maximum state dimension across all networks.
+    """
+    max_dim = 0
+    for network in networks:
+        env = create_environment(network['net'], network['route'], seed=42)
+        max_dim = max(max_dim, env.observation_space.shape[0])
+        env.close()
+    return max_dim
+
 def train() -> None:
     # Q-learning parameters
-    epochs_per_network = 10
+    epochs = 10
     epsilon = 1.0
     learning_rate = 1e-3
     min_epsilon = 0.01
@@ -159,57 +170,48 @@ def train() -> None:
 
     network_directory = '../nets'
     networks = load_networks(network_directory)
-    expected_signals = load_expected_signals(networks)
+    # Filter networks to include only road1, road2, and road3
+    networks = [n for n in networks if any(road in n['net'] for road in ['road1', 'road2', 'road3'])]
 
-    for network in networks:
-        network_name = os.path.splitext(os.path.basename(network['net']))[0]
-        logging.info(f"\n{'='*50}\nTraining on {network_name}\n{'='*50}")
+    # Dynamically determine the maximum state dimension
+    max_state_dim = get_max_state_dim(networks)
 
-        # Initialize environment to get dimensions
-        env = create_environment(network['net'], network['route'], seed=42)
-        max_state_dim = env.observation_space.shape[0]
-        max_action_dim = env.action_space.n
-        env.close()
+    # Initialize environment to get action dimensions
+    env = create_environment(networks[0]['net'], networks[0]['route'], seed=42)
+    max_action_dim = env.action_space.n
+    env.close()
 
-        # Initialize agents for expected signals
-        agents: Dict[str, QlAgent] = {}
-        for ts in expected_signals[network_name]:
-            agent = QlAgent(
-                input_shape=max_state_dim,
-                output_shape=max_action_dim,
-                learning_rate=learning_rate,
-                epsilon=epsilon,
-                batch_size=batch_size,
-                memory_size=memory_size
-            )
-            agents[ts] = agent
-            logging.info(f"Initialized new agent for {ts}")
+    # Initialize a single agent for all networks
+    agent = QlAgent(
+        input_shape=max_state_dim,
+        output_shape=max_action_dim,
+        learning_rate=learning_rate,
+        epsilon=epsilon,
+        batch_size=batch_size,
+        memory_size=memory_size
+    )
 
-        reward_history: Dict[str, List[float]] = {ts: [] for ts in expected_signals[network_name]}
-        best_rewards: Dict[str, float] = {ts: float('-inf') for ts in expected_signals[network_name]}
-        current_epsilon = epsilon
+    reward_history = []
+    best_reward = float('-inf')
+    current_epsilon = epsilon
 
-        for epoch in range(epochs_per_network):
-            logging.info(f"\nEpoch {epoch + 1}/{epochs_per_network} | Current epsilon: {current_epsilon:.3f}")
+    for epoch in range(epochs):
+        logging.info(f"\nEpoch {epoch + 1}/{epochs} | Current epsilon: {current_epsilon:.3f}")
+        episode_rewards = []
+
+        for network in networks:
             env = create_environment(network['net'], network['route'], seed=42 + epoch)
             try:
                 observations = env.reset()
-                logging.info(f"Observations keys: {list(observations.keys())}")  # Debugging line
-                available_signals = [ts for ts in expected_signals[network_name] if ts in observations]
-                if not available_signals:
-                    logging.error(f"No available signals found in environment for network {network_name}. Skipping training on this network.")
-                    continue
-
-                logging.info(f"Available signals for training: {available_signals}")
                 done = {"__all__": False}
                 step_count = 0
-                episode_rewards: Dict[str, List[float]] = {ts: [] for ts in available_signals}
 
                 while not done["__all__"] and step_count < max_steps:
                     step_count += 1
                     actions = {}
-                    for ts_id in available_signals:
-                        state = pad_state(observations[ts_id], max_state_dim)
+
+                    for ts_id, obs in observations.items():
+                        state = pad_state(obs, max_state_dim)
                         emergency_count = check_emergency_vehicle(env, ts_id)
                         state_tensor = torch.tensor(state, dtype=torch.float32)
 
@@ -217,7 +219,7 @@ def train() -> None:
                             action = random.randint(0, max_action_dim - 1)
                         else:
                             with torch.no_grad():
-                                q_values = agents[ts_id].predict_rewards(state_tensor)
+                                q_values = agent.predict_rewards(state_tensor)
                                 action = torch.argmax(q_values).item()
 
                         if emergency_count > 0:
@@ -226,74 +228,51 @@ def train() -> None:
 
                         actions[ts_id] = action
 
-                    next_observations, rewards, done, info = env.step(actions)
+                    next_observations, rewards, done, _ = env.step(actions)
 
-                    for ts_id in available_signals:
-                        if ts_id not in next_observations or ts_id not in rewards:
-                            logging.warning(f"Missing reward or observation for {ts_id}. Skipping this update.")
-                            continue
-
+                    for ts_id, reward in rewards.items():
                         state = pad_state(observations[ts_id], max_state_dim)
                         next_state = pad_state(next_observations[ts_id], max_state_dim)
                         emergency_count = check_emergency_vehicle(env, ts_id)
-                        reward = normalize_reward(rewards[ts_id], emergency_count)
-                        agents[ts_id].remember(state, actions[ts_id], reward, next_state, done["__all__"])
-                        if len(agents[ts_id].memory) >= batch_size:
+                        reward = normalize_reward(reward, emergency_count)
+                        agent.remember(state, actions[ts_id], reward, next_state, done["__all__"])
+                        episode_rewards.append(reward)
+
+                        if len(agent.memory) >= batch_size:
                             with torch.no_grad():
                                 state_tensor = torch.tensor(state, dtype=torch.float32)
-                                pred_reward = agents[ts_id].predict_rewards(state_tensor)
-                            agents[ts_id].learn(pred_reward, reward, emergency_count > 0)
-                        episode_rewards[ts_id].append(reward)
+                                pred_reward = agent.predict_rewards(state_tensor)
+                            agent.learn(pred_reward, reward, emergency_count > 0)
 
                     observations = next_observations
 
-                    if step_count % 100 == 0:
-                        logging.info(f"\nStep {step_count}/{max_steps}")
-                        for ts_id in episode_rewards:
-                            avg_reward = np.mean(episode_rewards[ts_id][-100:])
-                            logging.info(f"{ts_id} - Avg Reward (last 100): {avg_reward:.2f}")
             finally:
                 env.close()
 
-            for ts_id in available_signals:
-                avg_reward = np.mean(episode_rewards[ts_id])
-                reward_history[ts_id].append(avg_reward)
-                global_metrics[f"{network_name}_{ts_id}"].append(avg_reward)
-                model_path = f"../trained_models/ql_model_final_{network_name}_{ts_id}.pth"
-                if avg_reward > best_rewards[ts_id]:
-                    best_rewards[ts_id] = avg_reward
-                    torch.save({
-                        'model_state_dict': agents[ts_id].model.state_dict(),
-                        'reward_mean': agents[ts_id].reward_mean,
-                        'reward_std': agents[ts_id].reward_std,
-                        'reward_count': agents[ts_id].reward_count
-                    }, model_path)
-                    logging.info(f"Saved best model for {ts_id} (reward: {avg_reward:.2f})")
-                compare_models(agents[ts_id], model_path, env, ts_id, max_state_dim)
+        avg_reward = np.mean(episode_rewards)
+        reward_history.append(avg_reward)
+        global_metrics['combined'].append(avg_reward)
 
-            current_epsilon = max(min_epsilon, current_epsilon * epsilon_decay)
+        if avg_reward > best_reward:
+            best_reward = avg_reward
+            torch.save({
+                'model_state_dict': agent.model.state_dict(),
+                'reward_mean': agent.reward_mean,
+                'reward_std': agent.reward_std,
+                'reward_count': agent.reward_count
+            }, '../trained_models/ql_model_combined.pth')
+            logging.info(f"Saved best model (reward: {avg_reward:.2f})")
 
-        # Plot training progress for this network
-        plt.figure(figsize=(12, 6))
-        for ts_id in reward_history:
-            plt.plot(reward_history[ts_id], label=ts_id)
-        plt.title(f'Training Progress on {network_name}')
-        plt.xlabel('Epoch')
-        plt.ylabel('Average Reward')
-        plt.legend()
-        plt.savefig(f'../trained_models/training_progress_{network_name}.png')
-        plt.close()
+        current_epsilon = max(min_epsilon, current_epsilon * epsilon_decay)
 
     # Plot global training progress
-    plt.figure(figsize=(15, 8))
-    for metric_name, values in global_metrics.items():
-        plt.plot(values, label=metric_name)
-    plt.title('Global Training Progress')
+    plt.figure(figsize=(12, 6))
+    plt.plot(reward_history, label='Combined')
+    plt.title('Training Progress on Combined Networks')
     plt.xlabel('Epoch')
     plt.ylabel('Average Reward')
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.tight_layout()
-    plt.savefig('../trained_models/global_training_progress.png')
+    plt.legend()
+    plt.savefig('../trained_models/global_training_progress_combined.png')
     plt.close()
 
 if __name__ == "__main__":
