@@ -1,0 +1,13 @@
+<routes>
+    <vType id="vtypeauto" accel="2.0" decel="4.5" sigma="0.5" length="5" maxSpeed="13.9" color="1,0,0"/>
+
+    <route id="r1" edges="end1_junction junction_end3"/>
+    <route id="r2" edges="end2_junction junction_end4"/>
+    <route id="r3" edges="end3_junction junction_end1"/>
+    <route id="r4" edges="end4_junction junction_end2"/>
+
+    <flow id="f1" type="vtypeauto" route="r1" begin="0" end="5000" vehsPerHour="300"/>
+    <flow id="f2" type="vtypeauto" route="r2" begin="0" end="5000" vehsPerHour="300"/>
+    <flow id="f3" type="vtypeauto" route="r3" begin="0" end="5000" vehsPerHour="300"/>
+    <flow id="f4" type="vtypeauto" route="r4" begin="0" end="5000" vehsPerHour="300"/>
+</routes>
