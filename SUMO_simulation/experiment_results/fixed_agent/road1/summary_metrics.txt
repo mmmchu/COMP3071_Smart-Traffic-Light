@@ -1,0 +1,4 @@
+Summary for road1 (Fixed-Time)
+Average Reward: 0.00
+Average Waiting Time: 0.00 s
+Average Queue Length: 0.02

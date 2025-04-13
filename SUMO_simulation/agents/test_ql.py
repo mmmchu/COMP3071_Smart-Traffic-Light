@@ -2,15 +2,21 @@ import os
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 import sumo_rl
 import traci
 from ql_agent import QlAgent
 
 # === Test Environment ===
-net_file = "../nets/road1.net.xml"
-route_file = "../nets/road1.rou.xml"
+net_file = "../nets/road3.net.xml"  # change to road1, road2, road3 for other tests
+route_file = "../nets/road3.rou.xml"
 model_path = "../trained_models/ql_model.pth"
 max_input_shape = 49
+
+# === Extract road ID for saving
+road_id = os.path.basename(net_file).replace(".net.xml", "")  # e.g., "road1"
+result_dir = os.path.join("../experiment_results/ql_agent", road_id)
+os.makedirs(result_dir, exist_ok=True)
 
 # === Setup Environment ===
 env = sumo_rl.SumoEnvironment(
@@ -105,7 +111,7 @@ plt.grid(True)
 
 plt.subplot(3, 1, 3)
 for ts in ts_ids:
-    plt.hist(phase_usage[ts], bins=range(max(phase_usage[ts])+2), alpha=0.5, label=f"{ts}")
+    plt.hist(phase_usage[ts], bins=range(max(phase_usage[ts]) + 2), alpha=0.5, label=f"{ts}")
 plt.title("Phase Usage Histogram")
 plt.xlabel("Phase Index")
 plt.ylabel("Frequency")
@@ -113,4 +119,32 @@ plt.legend()
 plt.grid(True)
 
 plt.tight_layout()
-plt.show()
+plot_path = os.path.join(result_dir, "ql_stepwise_metrics.png")
+plt.savefig(plot_path)
+print(f"📊 Saved stepwise QL performance to {plot_path}")
+
+# === CSV Output ===
+df = pd.DataFrame({
+    "step": np.arange(len(rewards_per_step)),
+    "reward": rewards_per_step,
+    "waiting_time": avg_waiting_times,
+    "queue_length": avg_queue_lengths
+})
+csv_path = os.path.join(result_dir, "step_metrics.csv")
+df.to_csv(csv_path, index=False)
+print(f"📄 Saved stepwise QL metrics CSV to {csv_path}")
+
+# === Summary Output ===
+summary_path = os.path.join(result_dir, "summary_metrics.txt")
+with open(summary_path, "w", encoding="utf-8") as f:
+    f.write("📊 Summary QL Metrics:\n")
+    f.write(f"Average Reward per Step: {np.mean(rewards_per_step):.2f}\n")
+    f.write(f"Average Waiting Time: {np.mean(avg_waiting_times):.2f} s\n")
+    f.write(f"Average Queue Length: {np.mean(avg_queue_lengths):.2f}\n")
+print(f"📄 Saved summary QL metrics to {summary_path}")
+
+# === Print Summary to Console ===
+print("\n📊 Summary QL Metrics:")
+print(f"Average Reward per Step: {np.mean(rewards_per_step):.2f}")
+print(f"Average Waiting Time: {np.mean(avg_waiting_times):.2f} s")
+print(f"Average Queue Length: {np.mean(avg_queue_lengths):.2f}")

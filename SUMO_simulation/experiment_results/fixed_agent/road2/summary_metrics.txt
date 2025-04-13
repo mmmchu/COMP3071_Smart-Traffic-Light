@@ -1,0 +1,4 @@
+Summary for road2 (Fixed-Time)
+Average Reward: 0.00
+Average Waiting Time: 3154.68 s
+Average Queue Length: 3.18
