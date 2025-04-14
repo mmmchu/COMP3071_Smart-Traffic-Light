@@ -2,115 +2,164 @@ import os
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 import sumo_rl
 import traci
+
 from ql_agent import QlAgent
+from train_ppo_agent import PPO, pad_state
 
-# === Test Environment ===
-net_file = "../nets/road1.net.xml"
-route_file = "../nets/road1.rou.xml"
-model_path = "../trained_models/ql_model.pth"
-max_input_shape = 49
+NETWORKS = [
+    ("../nets/road1.net.xml", "../nets/road1.rou.xml"),
+    ("../nets/road2.net.xml", "../nets/road2.rou.xml"),
+    ("../nets/road3.net.xml", "../nets/road3.rou.xml")
+]
 
-# === Setup Environment ===
-env = sumo_rl.SumoEnvironment(
-    net_file=net_file,
-    route_file=route_file,
-    use_gui=False,
-    num_seconds=5000,
-    single_agent=False
-)
+MODEL_PATHS = {
+    "ppo": "../trained_models/ppo_model.pth",
+    "ql": "../trained_models/ql_model.pth"
+}
 
-observations = env.reset()
-ts_ids = list(env.traffic_signals.keys())
-print("Traffic signals:", ts_ids)
+MAX_STATE_DIM = 37
+MAX_Q_STATE_DIM = 49
+MAX_ACTION_DIM = 4
 
-agent = QlAgent(input_shape=max_input_shape)
-agent.model.load_state_dict(torch.load(model_path))
-agent.model.eval()
+RESULT_DIR = "../experiment_results/all_agents"
+os.makedirs(RESULT_DIR, exist_ok=True)
 
-def check_emergency(ts):
+def count_emergency_vehicles():
     count = 0
-    for lane in traci.trafficlight.getControlledLanes(ts):
+    for lane in traci.lane.getIDList():
         for v in traci.lane.getLastStepVehicleIDs(lane):
             if traci.vehicle.getTypeID(v) == "DEFAULT_CONTAINERTYPE":
                 count += 1
     return count
 
-# === Tracking Metrics ===
-rewards_per_step = []
-avg_waiting_times = []
-avg_queue_lengths = []
-phase_usage = {ts: [] for ts in ts_ids}
+def run_agent(agent_type, road_name, net_file, route_file):
+    print(f"\n🚦 Testing {agent_type.upper()} agent on {road_name}...")
 
-# === Simulation Loop ===
-done = {"__all__": False}
-step = 0
-while not done["__all__"]:
-    actions = {}
-    for ts in ts_ids:
-        emergency = check_emergency(ts)
-        obs = np.append(observations[ts], emergency)
-        obs_padded = np.pad(obs, (0, max_input_shape - len(obs)))
-        obs_tensor = torch.tensor(obs_padded, dtype=torch.float32)
+    env = sumo_rl.SumoEnvironment(
+        net_file=net_file,
+        route_file=route_file,
+        use_gui=False,
+        num_seconds=3000,
+        single_agent=False
+    )
 
-        ts_obj = env.traffic_signals[ts]
-        current_phase = ts_obj.green_phase
-        valid_transitions = [new for (old, new) in ts_obj.yellow_dict.keys() if old == current_phase]
+    obs = env.reset()
+    done = {"__all__": False}
+    traffic_signals = list(env.traffic_signals.keys())
 
-        pred = agent.predict_rewards(obs_tensor)
-        masked_pred = torch.full_like(pred, float('-inf'))
-        for phase in valid_transitions:
-            masked_pred[phase] = pred[phase]
+    if agent_type == "ppo":
+        agent = PPO(state_dim=MAX_STATE_DIM, max_action_dim=MAX_ACTION_DIM,
+                    hidden_size=64, lr=3e-4, gamma=0.99, clip_ratio=0.2, K_epoch=10)
+        agent.actor_critic.load_state_dict(torch.load(MODEL_PATHS["ppo"]))
+        agent.actor_critic.eval()
+    elif agent_type == "ql":
+        agent = QlAgent(input_shape=MAX_Q_STATE_DIM)
+        agent.model.load_state_dict(torch.load(MODEL_PATHS["ql"]))
+        agent.model.eval()
 
-        action = torch.argmax(masked_pred).item()
-        actions[ts] = action
-        phase_usage[ts].append(action)
+    step = 0
+    total_wait_time = 0
+    total_queue_length = 0
+    passed_vehicles = set()
+    emergency_counts = []
 
-    # Collect waiting and queue stats
-    total_wait = 0
-    total_halt = 0
-    lane_count = 0
-    for lane in traci.lane.getIDList():
-        total_wait += traci.lane.getWaitingTime(lane)
-        total_halt += traci.lane.getLastStepHaltingNumber(lane)
-        lane_count += 1
-    avg_waiting_times.append(total_wait / lane_count)
-    avg_queue_lengths.append(total_halt / lane_count)
+    while not done["__all__"]:
+        actions = {}
+        for ts in traffic_signals:
+            if agent_type == "ppo":
+                padded_state = pad_state(obs[ts], MAX_STATE_DIM)
+                action, _ = agent.choose_action(padded_state, env.action_space.n)
+            elif agent_type == "ql":
+                emergency = count_emergency_vehicles()
+                padded_state = np.pad(np.append(obs[ts], emergency), (0, MAX_Q_STATE_DIM - len(obs[ts]) - 1))
+                state_tensor = torch.tensor(padded_state, dtype=torch.float32)
 
-    # Take step
-    observations, rewards, done, _ = env.step(actions)
-    rewards_per_step.append(sum(rewards.values()))
-    step += 1
+                ts_obj = env.traffic_signals[ts]
+                current_phase = ts_obj.green_phase
+                valid_transitions = [new for (old, new) in ts_obj.yellow_dict.keys() if old == current_phase]
 
-env.close()
+                pred = agent.predict_rewards(state_tensor)
+                masked_pred = torch.full_like(pred, float('-inf'))
+                for phase in valid_transitions:
+                    masked_pred[phase] = pred[phase]
 
-# === Plotting Metrics ===
-plt.figure(figsize=(12, 6))
-plt.subplot(3, 1, 1)
-plt.plot(rewards_per_step)
-plt.title("Total Reward Over Time")
-plt.xlabel("Step")
-plt.ylabel("Reward")
-plt.grid(True)
+                action = torch.argmax(masked_pred).item()
+            else:
+                action = None
 
-plt.subplot(3, 1, 2)
-plt.plot(avg_waiting_times, label='Avg Waiting Time')
-plt.plot(avg_queue_lengths, label='Avg Queue Length')
-plt.title("Waiting Time and Queue Length")
-plt.xlabel("Step")
-plt.ylabel("Time / Queue")
-plt.legend()
-plt.grid(True)
+            if action is not None:
+                actions[ts] = action
 
-plt.subplot(3, 1, 3)
-for ts in ts_ids:
-    plt.hist(phase_usage[ts], bins=range(max(phase_usage[ts])+2), alpha=0.5, label=f"{ts}")
-plt.title("Phase Usage Histogram")
-plt.xlabel("Phase Index")
-plt.ylabel("Frequency")
-plt.legend()
-plt.grid(True)
+        obs, rewards, done, _ = env.step(actions if actions else {})
 
-plt.tight_layout()
-plt.show()
+        if traci.isLoaded():
+            for lane_id in traci.lane.getIDList():
+                total_wait_time += traci.lane.getWaitingTime(lane_id)
+                total_queue_length += traci.lane.getLastStepHaltingNumber(lane_id)
+            for veh_id in traci.vehicle.getIDList():
+                if traci.vehicle.getRouteIndex(veh_id) > 0:
+                    passed_vehicles.add(veh_id)
+            emergency_counts.append(count_emergency_vehicles())
+
+        step += 1
+
+    env.close()
+
+    avg_wait = total_wait_time / step if step else 0
+    avg_queue = total_queue_length / step if step else 0
+    throughput = len(passed_vehicles)
+    avg_emergency = np.mean(emergency_counts)
+
+    print(f"   ➤ Avg Wait Time: {avg_wait:.2f} s | Queue: {avg_queue:.2f} | Throughput: {throughput} | Emergencies/Step: {avg_emergency:.2f}")
+
+    return avg_wait, avg_queue, throughput, avg_emergency
+
+def test_all():
+    summary_rows = []
+    agents = ["fixed", "ql", "ppo"]
+    metrics = {a: {"wait": [], "queue": [], "throughput": [], "emergency": []} for a in agents}
+
+    for net_file, route_file in NETWORKS:
+        road_name = os.path.basename(net_file).replace(".net.xml", "")
+        for agent in agents:
+            avg_wait, avg_queue, throughput, avg_emergency = run_agent(agent, road_name, net_file, route_file)
+            metrics[agent]["wait"].append(avg_wait)
+            metrics[agent]["queue"].append(avg_queue)
+            metrics[agent]["throughput"].append(throughput)
+            metrics[agent]["emergency"].append(avg_emergency)
+            summary_rows.append({
+                "Road": road_name,
+                "Agent": agent,
+                "Avg Wait Time (s)": avg_wait,
+                "Avg Queue Length": avg_queue,
+                "Throughput": throughput,
+                "Emergencies per Step": avg_emergency
+            })
+
+    labels = [os.path.basename(net_file).replace(".net.xml", "") for net_file, _ in NETWORKS]
+    x = np.arange(len(labels))
+    width = 0.25
+
+    plt.figure(figsize=(14, 6))
+    for i, metric in enumerate(["wait", "queue", "throughput", "emergency"]):
+        plt.subplot(1, 4, i+1)
+        for j, agent in enumerate(agents):
+            plt.bar(x + j*width - width, metrics[agent][metric], width, label=agent)
+        plt.xticks(x, labels)
+        plt.title(metric.capitalize())
+        plt.xlabel("Road")
+        plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(RESULT_DIR, "all_agents_comparison.png"))
+
+    summary_df = pd.DataFrame(summary_rows)
+    summary_csv_path = os.path.join(RESULT_DIR, "summary_results.csv")
+    summary_df.to_csv(summary_csv_path, index=False)
+    print("\n📄 Summary CSV saved to", summary_csv_path)
+
+if __name__ == "__main__":
+    test_all()

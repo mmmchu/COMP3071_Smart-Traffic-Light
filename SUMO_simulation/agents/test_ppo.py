@@ -2,6 +2,7 @@
 import os
 import torch
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import sumo_rl
 import traci
@@ -22,6 +23,23 @@ RESULT_DIR = "../experiment_results/ppo_agent"
 
 os.makedirs(RESULT_DIR, exist_ok=True)
 
+def count_emergency_vehicles():
+    count = 0
+    for lane in traci.lane.getIDList():
+        for v in traci.lane.getLastStepVehicleIDs(lane):
+            if traci.vehicle.getTypeID(v) == "DEFAULT_CONTAINERTYPE":
+                count += 1
+    return count
+
+def log_emergency_wait():
+    logs = []
+    for lane in traci.lane.getIDList():
+        for veh_id in traci.lane.getLastStepVehicleIDs(lane):
+            if traci.vehicle.getTypeID(veh_id) == "DEFAULT_CONTAINERTYPE":
+                wait = traci.vehicle.getWaitingTime(veh_id)
+                logs.append((veh_id, wait))
+    return logs
+
 def test_ppo():
     print("📦 Loading PPO model...")
     agent = PPO(state_dim=MAX_STATE_DIM, max_action_dim=MAX_ACTION_DIM,
@@ -29,14 +47,8 @@ def test_ppo():
     agent.actor_critic.load_state_dict(torch.load(MODEL_PATH))
     agent.actor_critic.eval()
 
-    all_waiting_times = []
-    all_queue_lengths = []
-    all_throughputs = []
-    labels = []
-
     for net_file, route_file in NETWORKS:
         road_name = os.path.basename(net_file).replace(".net.xml", "")
-        labels.append(road_name)
         print(f"\n🚦 Evaluating PPO Agent on {road_name}")
 
         env = sumo_rl.SumoEnvironment(
@@ -55,6 +67,8 @@ def test_ppo():
         total_wait_time = 0
         total_queue_length = 0
         passed_vehicles = set()
+        emergency_counts = []
+        emergency_wait_logs = []
 
         while not done["__all__"]:
             actions = {}
@@ -74,6 +88,9 @@ def test_ppo():
                     if veh_id not in passed_vehicles and traci.vehicle.getRouteIndex(veh_id) > 0:
                         passed_vehicles.add(veh_id)
 
+                emergency_counts.append(count_emergency_vehicles())
+                emergency_wait_logs.extend([(step, veh_id, wait) for veh_id, wait in log_emergency_wait()])
+
             step += 1
 
         avg_wait = total_wait_time / step if step else 0
@@ -83,39 +100,33 @@ def test_ppo():
         print(f"   ➤ Avg Waiting Time: {avg_wait:.2f} s")
         print(f"   ➤ Avg Queue Length: {avg_queue:.2f}")
         print(f"   ➤ Vehicles Passed:  {throughput}")
+        print(f"   ➤ Avg Emergency Vehicles per Step: {np.mean(emergency_counts):.2f}")
 
-        all_waiting_times.append(avg_wait)
-        all_queue_lengths.append(avg_queue)
-        all_throughputs.append(throughput)
+        road_result_dir = os.path.join(RESULT_DIR, road_name)
+        os.makedirs(road_result_dir, exist_ok=True)
+
+        # Save time series plot
+        plt.figure(figsize=(12, 8))
+        plt.plot(emergency_counts, label='Emergency Vehicle Count', color='red')
+        plt.title(f"PPO Agent Emergency Vehicle Detection: {road_name}")
+        plt.xlabel("Step")
+        plt.ylabel("Count")
+        plt.grid(True)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(os.path.join(road_result_dir, "ppo_emergency_detection.png"))
+
+        pd.DataFrame(emergency_wait_logs, columns=["step", "vehicle_id", "wait_time"]).to_csv(
+            os.path.join(road_result_dir, "emergency_wait_log.csv"), index=False)
+
+        with open(os.path.join(road_result_dir, "summary_metrics.txt"), "w", encoding="utf-8") as f:
+            f.write(f"Summary for {road_name} (PPO)\n")
+            f.write(f"Average Waiting Time: {avg_wait:.2f} s\n")
+            f.write(f"Average Queue Length: {avg_queue:.2f}\n")
+            f.write(f"Throughput: {throughput}\n")
+            f.write(f"Average Emergency Vehicles per Step: {np.mean(emergency_counts):.2f}\n")
 
         env.close()
-
-    # Save bar chart
-    x = np.arange(len(labels))
-    width = 0.25
-
-    plt.figure(figsize=(10, 6))
-    plt.bar(x - width, all_waiting_times, width=width, label='Avg Waiting Time')
-    plt.bar(x, all_queue_lengths, width=width, label='Avg Queue Length')
-    plt.bar(x + width, all_throughputs, width=width, label='Throughput')
-    plt.xticks(x, labels)
-    plt.xlabel("Road Network")
-    plt.ylabel("Metric Value")
-    plt.title("PPO Agent Performance per Road")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(os.path.join(RESULT_DIR, "ppo_performance_bar_chart.png"))
-    print(f"📊 Saved performance chart to {RESULT_DIR}/ppo_performance_bar_chart.png")
-
-    result = {
-        "waiting_time": np.mean(all_waiting_times),
-        "queue_length": np.mean(all_queue_lengths),
-        "throughput": int(np.mean(all_throughputs))
-    }
-
-    print("\n📊 Overall PPO Performance:")
-    print(result)
-    return result
 
 if __name__ == "__main__":
     test_ppo()
