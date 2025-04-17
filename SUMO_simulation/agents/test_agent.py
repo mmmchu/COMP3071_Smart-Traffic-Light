@@ -41,7 +41,7 @@ def run_agent(agent_type, road_name, net_file, route_file):
     env = sumo_rl.SumoEnvironment(
         net_file=net_file,
         route_file=route_file,
-        use_gui=False,
+        use_gui=False, #TODO change to TRUE during demo
         num_seconds=3000,
         single_agent=False
     )
@@ -141,20 +141,26 @@ def test_all():
 
     labels = [os.path.basename(net_file).replace(".net.xml", "") for net_file, _ in NETWORKS]
     x = np.arange(len(labels))
-    width = 0.25
+
+    # Apply log scaling to prevent small values from becoming 0
+    for metric in ["wait", "queue", "throughput", "emergency"]:
+        for agent in agents:
+            metrics[agent][metric] = np.log1p(np.array(metrics[agent][metric]))  # log scaling (log(x+1))
 
     plt.figure(figsize=(14, 6))
     for i, metric in enumerate(["wait", "queue", "throughput", "emergency"]):
-        plt.subplot(1, 4, i+1)
-        for j, agent in enumerate(agents):
-            plt.bar(x + j*width - width, metrics[agent][metric], width, label=agent)
+        plt.subplot(1, 4, i + 1)
+        for agent in agents:
+            plt.plot(x, metrics[agent][metric], marker='o', label=agent)  # Line plot with markers
         plt.xticks(x, labels)
         plt.title(metric.capitalize())
         plt.xlabel("Road")
+        plt.ylabel("Average Wait Time (seconds)" if metric == "wait" else metric.capitalize())
         plt.grid(True)
-    plt.legend()
+        if i == 0:
+            plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULT_DIR, "all_agents_comparison.png"))
+    plt.savefig(os.path.join(RESULT_DIR, "all_agents_comparison_log.png"))
 
     summary_df = pd.DataFrame(summary_rows)
     summary_csv_path = os.path.join(RESULT_DIR, "summary_results.csv")
