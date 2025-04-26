@@ -9,7 +9,10 @@ import traci
 from ql_agent import QlAgent
 from train_ppo_agent import PPO, pad_state
 
-# Define networks and model paths
+# Test Configuration
+NUM_EPISODES = 10  # Number of episodes to run for each agent on each network
+SIMULATION_TIME = 3000  # Duration of each episode in seconds
+
 NETWORKS = [
     ("../nets/road1.net.xml", "../nets/road1.rou.xml"),
     ("../nets/road2.net.xml", "../nets/road2.rou.xml"),
@@ -30,7 +33,6 @@ os.makedirs(RESULT_DIR, exist_ok=True)
 
 
 def count_emergency_vehicles():
-    """Count emergency vehicles (e.g., container trucks) currently in simulation."""
     count = 0
     for lane in traci.lane.getIDList():
         for v in traci.lane.getLastStepVehicleIDs(lane):
@@ -39,14 +41,12 @@ def count_emergency_vehicles():
     return count
 
 
-def run_agent(agent_type, road_name, net_file, route_file):
-    print(f"\n🚦 Testing {agent_type.upper()} agent on {road_name}...")
-
+def run_episode(agent_type, net_file, route_file):
     env = sumo_rl.SumoEnvironment(
         net_file=net_file,
         route_file=route_file,
-        use_gui=True,
-        num_seconds=3000,
+        use_gui=False,
+        num_seconds=SIMULATION_TIME,
         single_agent=False
     )
 
@@ -54,7 +54,6 @@ def run_agent(agent_type, road_name, net_file, route_file):
     done = {"__all__": False}
     traffic_signals = list(env.traffic_signals.keys())
 
-    # Load agent depending on type
     if agent_type == "ppo":
         agent = PPO(state_dim=MAX_STATE_DIM, max_action_dim=MAX_ACTION_DIM,
                     hidden_size=64, lr=3e-4, gamma=0.99, clip_ratio=0.2, K_epoch=10)
@@ -65,7 +64,7 @@ def run_agent(agent_type, road_name, net_file, route_file):
         agent.model.load_state_dict(torch.load(MODEL_PATHS["ql"]))
         agent.model.eval()
     elif agent_type == "fixed":
-        agent = None  # 🚦 No agent needed
+        agent = None  # No model needed for fixed-time agent
     else:
         raise ValueError(f"Unknown agent type: {agent_type}")
 
@@ -81,6 +80,7 @@ def run_agent(agent_type, road_name, net_file, route_file):
             if agent_type == "ppo":
                 padded_state = pad_state(obs[ts], MAX_STATE_DIM)
                 action, _ = agent.choose_action(padded_state, env.action_space.n)
+
             elif agent_type == "ql":
                 emergency = count_emergency_vehicles()
                 padded_state = np.pad(np.append(obs[ts], emergency), (0, MAX_Q_STATE_DIM - len(obs[ts]) - 1))
@@ -96,16 +96,24 @@ def run_agent(agent_type, road_name, net_file, route_file):
                     masked_pred[phase] = pred[phase]
 
                 action = torch.argmax(masked_pred).item()
+
             elif agent_type == "fixed":
-                action = None  # 🚦 Let default fixed signals work
+                ts_obj = env.traffic_signals[ts]
+                current_phase = ts_obj.green_phase
+                valid_transitions = [new for (old, new) in ts_obj.yellow_dict.keys() if old == current_phase]
+
+                # Just pick the current phase again if valid, or stay at 0
+                if current_phase in valid_transitions:
+                    action = current_phase
+                else:
+                    action = valid_transitions[0] if valid_transitions else 0
+
             else:
-                action = None
+                raise ValueError(f"Unknown agent type: {agent_type}")
 
-            if action is not None:
-                actions[ts] = action
+            actions[ts] = action
 
-        # Step the environment
-        obs, rewards, done, _ = env.step(actions if actions else {})
+        obs, rewards, done, _ = env.step(actions)
 
         if traci.isLoaded():
             for lane_id in traci.lane.getIDList():
@@ -125,59 +133,106 @@ def run_agent(agent_type, road_name, net_file, route_file):
     throughput = len(passed_vehicles)
     avg_emergency = np.mean(emergency_counts)
 
-    print(f"   ➤ Avg Wait Time: {avg_wait:.2f} s | Queue: {avg_queue:.2f} | Throughput: {throughput} | Emergencies"
-          f"/Step: {avg_emergency:.2f}")
-
     return avg_wait, avg_queue, throughput, avg_emergency
+
+
+def run_agent(agent_type, road_name, net_file, route_file):
+    print(f"\n🚦 Testing {agent_type.upper()} agent on {road_name}...")
+
+    # Run multiple episodes and collect results
+    episode_results = {
+        "wait": [],
+        "queue": [],
+        "throughput": [],
+        "emergency": []
+    }
+
+    for episode in range(NUM_EPISODES):
+        print(f"   Episode {episode + 1}/{NUM_EPISODES}")
+        avg_wait, avg_queue, throughput, avg_emergency = run_episode(agent_type, net_file, route_file)
+
+        episode_results["wait"].append(avg_wait)
+        episode_results["queue"].append(avg_queue)
+        episode_results["throughput"].append(throughput)
+        episode_results["emergency"].append(avg_emergency)
+
+        print(
+            f"   ➤ Avg Wait Time: {avg_wait:.2f} s | Queue: {avg_queue:.2f} | Throughput: {throughput} | Emergencies"
+            f"/Step: {avg_emergency:.2f}")
+
+    # Calculate mean and standard deviation
+    mean_wait = np.mean(episode_results["wait"])
+    std_wait = np.std(episode_results["wait"])
+    mean_queue = np.mean(episode_results["queue"])
+    std_queue = np.std(episode_results["queue"])
+    mean_throughput = np.mean(episode_results["throughput"])
+    std_throughput = np.std(episode_results["throughput"])
+    mean_emergency = np.mean(episode_results["emergency"])
+    std_emergency = np.std(episode_results["emergency"])
+
+    print(f"\n   📊 Summary over {NUM_EPISODES} episodes:")
+    print(f"   ➤ Avg Wait Time: {mean_wait:.2f} ± {std_wait:.2f} s")
+    print(f"   ➤ Avg Queue Length: {mean_queue:.2f} ± {std_queue:.2f}")
+    print(f"   ➤ Avg Throughput: {mean_throughput:.2f} ± {std_throughput:.2f}")
+    print(f"   ➤ Avg Emergencies/Step: {mean_emergency:.2f} ± {std_emergency:.2f}")
+
+    return mean_wait, mean_queue, mean_throughput, mean_emergency, std_wait, std_queue, std_throughput, std_emergency
 
 
 def test_all():
     summary_rows = []
     agents = ["fixed", "ql", "ppo"]
-    metrics = {a: {"wait": [], "queue": [], "throughput": [], "emergency": []} for a in agents}
+    metrics = {a: {"wait": [], "queue": [], "throughput": [], "emergency": [],
+                   "wait_std": [], "queue_std": [], "throughput_std": [], "emergency_std": []}
+               for a in agents}
 
     for net_file, route_file in NETWORKS:
         road_name = os.path.basename(net_file).replace(".net.xml", "")
         for agent in agents:
-            avg_wait, avg_queue, throughput, avg_emergency = run_agent(agent, road_name, net_file, route_file)
-            metrics[agent]["wait"].append(avg_wait)
-            metrics[agent]["queue"].append(avg_queue)
-            metrics[agent]["throughput"].append(throughput)
-            metrics[agent]["emergency"].append(avg_emergency)
+            mean_wait, mean_queue, mean_throughput, mean_emergency, \
+                std_wait, std_queue, std_throughput, std_emergency = run_agent(agent, road_name, net_file, route_file)
+
+            metrics[agent]["wait"].append(mean_wait)
+            metrics[agent]["queue"].append(mean_queue)
+            metrics[agent]["throughput"].append(mean_throughput)
+            metrics[agent]["emergency"].append(mean_emergency)
+            metrics[agent]["wait_std"].append(std_wait)
+            metrics[agent]["queue_std"].append(std_queue)
+            metrics[agent]["throughput_std"].append(std_throughput)
+            metrics[agent]["emergency_std"].append(std_emergency)
+
             summary_rows.append({
                 "Road": road_name,
                 "Agent": agent,
-                "Avg Wait Time (s)": avg_wait,
-                "Avg Queue Length": avg_queue,
-                "Throughput": throughput,
-                "Emergencies per Step": avg_emergency
+                "Avg Wait Time (s)": mean_wait,
+                "Wait Time Std": std_wait,
+                "Avg Queue Length": mean_queue,
+                "Queue Length Std": std_queue,
+                "Throughput": mean_throughput,
+                "Throughput Std": std_throughput,
+                "Emergencies per Step": mean_emergency,
+                "Emergencies Std": std_emergency
             })
 
     labels = [os.path.basename(net_file).replace(".net.xml", "") for net_file, _ in NETWORKS]
     x = np.arange(len(labels))
+    width = 0.25
 
-    # Apply log scaling
-    for metric in ["wait", "queue", "throughput", "emergency"]:
-        for agent in agents:
-            metrics[agent][metric] = np.log1p(np.array(metrics[agent][metric]))
-
-    # Plot results
     plt.figure(figsize=(14, 6))
     for i, metric in enumerate(["wait", "queue", "throughput", "emergency"]):
         plt.subplot(1, 4, i + 1)
-        for agent in agents:
-            plt.plot(x, metrics[agent][metric], marker='o', label=agent)
+        for j, agent in enumerate(agents):
+            means = metrics[agent][metric]
+            stds = metrics[agent][f"{metric}_std"]
+            plt.bar(x + j * width - width, means, width, label=agent, yerr=stds, capsize=5)
         plt.xticks(x, labels)
         plt.title(metric.capitalize())
         plt.xlabel("Road")
-        plt.ylabel("Average Wait Time (seconds)" if metric == "wait" else metric.capitalize())
         plt.grid(True)
-        if i == 0:
-            plt.legend()
+    plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(RESULT_DIR, "all_agents_comparison_log.png"))
+    plt.savefig(os.path.join(RESULT_DIR, "all_agents_comparison.png"))
 
-    # Save summary CSV
     summary_df = pd.DataFrame(summary_rows)
     summary_csv_path = os.path.join(RESULT_DIR, "summary_results.csv")
     summary_df.to_csv(summary_csv_path, index=False)
