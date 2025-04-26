@@ -1,0 +1,5 @@
+Summary for road3 (Fixed-Time)
+Average Reward: 0.00
+Average Waiting Time: 932.98 s
+Average Queue Length: 0.64
+Average Emergency Vehicles per Step: 0.99

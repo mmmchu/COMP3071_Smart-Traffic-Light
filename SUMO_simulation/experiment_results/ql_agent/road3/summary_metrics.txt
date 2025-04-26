@@ -1,0 +1,5 @@
+📊 Summary QL Metrics:
+Average Reward per Step: -0.00
+Average Waiting Time: 0.01 s
+Average Queue Length: 0.00
+Average Emergency Vehicles per Step: 0.04

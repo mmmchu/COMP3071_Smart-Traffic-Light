@@ -1,0 +1,5 @@
+Summary for road2 (Fixed-Time)
+Average Reward: 0.00
+Average Waiting Time: 3156.32 s
+Average Queue Length: 3.18
+Average Emergency Vehicles per Step: 0.00

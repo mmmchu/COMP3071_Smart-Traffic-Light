@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Common route definitions to reduce repetition -->
+    <route id="route_E0_to_E13_via_E3_E4_E7_E14_E12" edges="E0 E3 E4 E7 E14 E12 E13"/>
+    <route id="route_E0_to_E13_via_E3_E4_E5_E6_E12" edges="E0 E3 E4 E5 E6 E12 E13"/>
+    <route id="route_E10_to_E16_via_E9_E11" edges="E10 -E9 E11 E16"/>
+    <route id="route_E10_to_E13_via_E4_E7_E14_E12" edges="E10 E4 E7 E14 E12 E13"/>
+    <route id="route_E2_to_E10_via_E1_E8_E4" edges="-E2 E1 E8 -E4 -E10"/>
+    <route id="route_E1_to_E2" edges="-E1 E2"/>
+    <route id="route_E1_to_E0" edges="-E1 -E0"/>
+    <route id="route_E2_to_E0" edges="-E2 -E0"/>
+    <route id="route_E2_to_E13_via_E3_E9_E11_E6_E12" edges="-E2 E3 -E9 E11 E6 E12 E13"/>
+    <route id="route_E16_to_E15_via_E6" edges="-E16 E6 E15"/>
+    <route id="route_E15_to_E2_via_E14_E7_E8_E1" edges="-E15 -E14 -E7 -E8 -E1 E2"/>
+    <route id="route_E0_to_E10_via_E3" edges="E0 E3 -E10"/>
+    <route id="route_E13_to_E0_via_E12_E6_E5_E8_E1" edges="-E13 -E12 -E6 -E5 -E8 -E1 -E0"/>
+    <route id="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9" edges="E10 E4 E7 E14 -E6 -E11 E9 -E10"/>
+    <route id="route_E16_to_E15_via_E5_E7_E14" edges="-E16 -E5 E7 E14 E15"/>
+    <route id="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11" edges="E0 E1 E8 E7 E14 -E6 -E5 -E4 -E9 E11 E16"/>
+    <route id="route_E10_to_E0_via_E3" edges="E10 -E3 -E0"/>
+    <route id="route_E15_to_E10_via_E6_E11_E9" edges="-E15 -E6 -E11 E9 -E10"/>
+    <route id="route_E2_to_E16_via_E3_E4_E5" edges="-E2 E3 E4 E5 E16"/>
+
+    <!-- Vehicles using the predefined routes -->
+    <!-- Group 1: E0 to E13 (2 routes) -->
+    <vehicle id="t_0" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_1" depart="0.00" route="route_E0_to_E13_via_E3_E4_E5_E6_E12"/>
+    <vehicle id="t_16" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_17" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_44" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_45" depart="0.00" route="route_E0_to_E13_via_E3_E4_E5_E6_E12"/>
+    <vehicle id="t_46" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_47" depart="0.00" route="route_E0_to_E13_via_E3_E4_E5_E6_E12"/>
+    <vehicle id="t_73" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_74" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_75" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+    <vehicle id="t_76" depart="0.00" route="route_E0_to_E13_via_E3_E4_E7_E14_E12"/>
+
+    <!-- Group 2: E10 to E16 -->
+    <vehicle id="t_6" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_137" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_138" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_139" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_140" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_141" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+    <vehicle id="t_142" depart="0.00" route="route_E10_to_E16_via_E9_E11"/>
+
+    <!-- Group 3: E10 to E13 -->
+    <vehicle id="t_7" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+    <vehicle id="t_143" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+    <vehicle id="t_144" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+    <vehicle id="t_145" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+    <vehicle id="t_146" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+    <vehicle id="t_147" depart="0.00" route="route_E10_to_E13_via_E4_E7_E14_E12"/>
+
+    <!-- Group 4: E2 to E10 -->
+    <vehicle id="t_4" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_28" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_100" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_122" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_123" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_124" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_125" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_126" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_96" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_97" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_98" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+    <vehicle id="t_99" depart="0.00" route="route_E2_to_E10_via_E1_E8_E4"/>
+
+    <!-- Group 5: E1 to E2 -->
+    <vehicle id="t_101" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_102" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_103" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_104" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_105" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_29" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_30" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_31" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_32" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_111" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_112" depart="0.00" route="route_E1_to_E2"/>
+    <vehicle id="t_113" depart="0.00" route="route_E1_to_E2"/>
+
+    <!-- Group 6: E1 to E0 -->
+    <vehicle id="t_33" depart="0.00" route="route_E1_to_E0"/>
+    <vehicle id="t_34" depart="0.00" route="route_E1_to_E0"/>
+    <vehicle id="t_35" depart="0.00" route="route_E1_to_E0"/>
+    <vehicle id="t_36" depart="0.00" route="route_E1_to_E0"/>
+    <vehicle id="t_114" depart="0.00" route="route_E1_to_E0"/>
+    <vehicle id="t_115" depart="0.00" route="route_E1_to_E0"/>
+
+    <!-- Group 7: E2 to E0 -->
+    <vehicle id="t_2" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_37" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_38" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_81" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_82" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_83" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_84" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_85" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_116" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_117" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_118" depart="0.00" route="route_E2_to_E0"/>
+    <vehicle id="t_119" depart="0.00" route="route_E2_to_E0"/>
+
+    <!-- Group 8: E2 to E13 -->
+    <vehicle id="t_3" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+    <vehicle id="t_106" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+    <vehicle id="t_107" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+    <vehicle id="t_108" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+    <vehicle id="t_109" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+    <vehicle id="t_110" depart="0.00" route="route_E2_to_E13_via_E3_E9_E11_E6_E12"/>
+
+    <!-- Group 9: E16 to E15 -->
+    <vehicle id="t_11" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_14" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_22" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_23" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_24" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_53" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_54" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_55" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_56" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_57" depart="0.00" route="route_E16_to_E15_via_E5_E7_E14"/>
+    <vehicle id="t_68" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_69" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_70" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_71" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_72" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_90" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_91" depart="0.00" route="route_E16_to_E15_via_E6"/>
+    <vehicle id="t_92" depart="0.00" route="route_E16_to_E15_via_E6"/>
+
+    <!-- Group 10: E15 to E2 -->
+    <vehicle id="t_12" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_18" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_19" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_20" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_21" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_58" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_59" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_60" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_61" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_62" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_77" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_78" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_79" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_80" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_86" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_87" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_88" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+    <vehicle id="t_89" depart="0.00" route="route_E15_to_E2_via_E14_E7_E8_E1"/>
+
+    <!-- Group 11: E0 to E10 -->
+    <vehicle id="t_13" depart="0.00" route="route_E0_to_E10_via_E3"/>
+    <vehicle id="t_63" depart="0.00" route="route_E0_to_E10_via_E3"/>
+    <vehicle id="t_64" depart="0.00" route="route_E0_to_E10_via_E3"/>
+    <vehicle id="t_65" depart="0.00" route="route_E0_to_E10_via_E3"/>
+    <vehicle id="t_66" depart="0.00" route="route_E0_to_E10_via_E3"/>
+    <vehicle id="t_67" depart="0.00" route="route_E0_to_E10_via_E3"/>
+
+    <!-- Group 12: E13 to E0 -->
+    <vehicle id="t_5" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_25" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_26" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_27" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_132" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_133" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_134" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_135" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_136" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_93" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_94" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+    <vehicle id="t_95" depart="0.00" route="route_E13_to_E0_via_E12_E6_E5_E8_E1"/>
+
+    <!-- Group 13: E10 to E10 (circular) -->
+    <vehicle id="t_10" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+    <vehicle id="t_48" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+    <vehicle id="t_49" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+    <vehicle id="t_50" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+    <vehicle id="t_51" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+    <vehicle id="t_52" depart="0.00" route="route_E10_to_E10_via_E4_E7_E14_E6_E11_E9"/>
+
+    <!-- Group 14: E0 to E16 -->
+    <vehicle id="t_8" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+    <vehicle id="t_148" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+    <vehicle id="t_149" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+    <vehicle id="t_150" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+    <vehicle id="t_151" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+    <vehicle id="t_152" depart="0.00" route="route_E0_to_E16_via_E1_E8_E7_E14_E6_E5_E4_E9_E11"/>
+
+    <!-- Group 15: E10 to E0 -->
+    <vehicle id="t_9" depart="0.00" route="route_E10_to_E0_via_E3"/>
+    <vehicle id="t_153" depart="0.00" route="route_E10_to_E0_via_E3"/>
+    <vehicle id="t_154" depart="0.00" route="route_E10_to_E0_via_E3"/>
+    <vehicle id="t_155" depart="0.00" route="route_E10_to_E0_via_E3"/>
+    <vehicle id="t_156" depart="0.00" route="route_E10_to_E0_via_E3"/>
+    <vehicle id="t_157" depart="0.00" route="route_E10_to_E0_via_E3"/>
+
+    <!-- Group 16: E15 to E10 -->
+    <vehicle id="t_127" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_128" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_129" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_130" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_131" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_158" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_159" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_160" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_161" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_162" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+    <vehicle id="t_163" depart="0.00" route="route_E15_to_E10_via_E6_E11_E9"/>
+
+    <!-- Group 17: E2 to E16 -->
+    <vehicle id="t_39" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+    <vehicle id="t_40" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+    <vehicle id="t_41" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+    <vehicle id="t_42" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+    <vehicle id="t_120" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+    <vehicle id="t_121" depart="0.00" route="route_E2_to_E16_via_E3_E4_E5"/>
+
+    <!-- Special vehicle with type and color -->
+    <vehicle id="t_15" type="DEFAULT_CONTAINERTYPE" depart="0.00" color="red" route="route_E0_to_E13_via_E3_E4_E5_E6_E12"/>
+</routes>
