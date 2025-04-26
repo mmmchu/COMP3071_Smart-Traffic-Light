@@ -45,7 +45,7 @@ def run_episode(agent_type, net_file, route_file):
     env = sumo_rl.SumoEnvironment(
         net_file=net_file,
         route_file=route_file,
-        use_gui=False,
+        use_gui=True,
         num_seconds=SIMULATION_TIME,
         single_agent=False
     )

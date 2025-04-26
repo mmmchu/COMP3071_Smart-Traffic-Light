@@ -113,7 +113,7 @@ This will:
   - Simulation constants
 
 ### SUMO Simulation Files
-- `fixed.py`: Fixed-time traffic light control:
+- `fixed_time.py`: Fixed-time traffic light control:
   - Predefined signal timings
   - Baseline for comparison
   - Simple control strategy
