@@ -54,7 +54,7 @@ def test_ppo():
         env = sumo_rl.SumoEnvironment(
             net_file=net_file,
             route_file=route_file,
-            use_gui=False,
+            use_gui=True,
             num_seconds=3000,
             single_agent=False
         )

@@ -9,6 +9,10 @@ import traci
 from ql_agent import QlAgent
 from train_ppo_agent import PPO, pad_state
 
+# Test Configuration
+NUM_EPISODES = 10  # Number of episodes to run for each agent on each network
+SIMULATION_TIME = 3000  # Duration of each episode in seconds
+
 NETWORKS = [
     ("../nets/road1.net.xml", "../nets/road1.rou.xml"),
     ("../nets/road2.net.xml", "../nets/road2.rou.xml"),
@@ -35,14 +39,12 @@ def count_emergency_vehicles():
                 count += 1
     return count
 
-def run_agent(agent_type, road_name, net_file, route_file):
-    print(f"\n🚦 Testing {agent_type.upper()} agent on {road_name}...")
-
+def run_episode(agent_type, net_file, route_file):
     env = sumo_rl.SumoEnvironment(
         net_file=net_file,
         route_file=route_file,
         use_gui=False,
-        num_seconds=3000,
+        num_seconds=SIMULATION_TIME,
         single_agent=False
     )
 
@@ -113,30 +115,81 @@ def run_agent(agent_type, road_name, net_file, route_file):
     throughput = len(passed_vehicles)
     avg_emergency = np.mean(emergency_counts)
 
-    print(f"   ➤ Avg Wait Time: {avg_wait:.2f} s | Queue: {avg_queue:.2f} | Throughput: {throughput} | Emergencies/Step: {avg_emergency:.2f}")
-
     return avg_wait, avg_queue, throughput, avg_emergency
+
+def run_agent(agent_type, road_name, net_file, route_file):
+    print(f"\n🚦 Testing {agent_type.upper()} agent on {road_name}...")
+    
+    # Run multiple episodes and collect results
+    episode_results = {
+        "wait": [],
+        "queue": [],
+        "throughput": [],
+        "emergency": []
+    }
+    
+    for episode in range(NUM_EPISODES):
+        print(f"   Episode {episode + 1}/{NUM_EPISODES}")
+        avg_wait, avg_queue, throughput, avg_emergency = run_episode(agent_type, net_file, route_file)
+        
+        episode_results["wait"].append(avg_wait)
+        episode_results["queue"].append(avg_queue)
+        episode_results["throughput"].append(throughput)
+        episode_results["emergency"].append(avg_emergency)
+        
+        print(f"   ➤ Avg Wait Time: {avg_wait:.2f} s | Queue: {avg_queue:.2f} | Throughput: {throughput} | Emergencies/Step: {avg_emergency:.2f}")
+    
+    # Calculate mean and standard deviation
+    mean_wait = np.mean(episode_results["wait"])
+    std_wait = np.std(episode_results["wait"])
+    mean_queue = np.mean(episode_results["queue"])
+    std_queue = np.std(episode_results["queue"])
+    mean_throughput = np.mean(episode_results["throughput"])
+    std_throughput = np.std(episode_results["throughput"])
+    mean_emergency = np.mean(episode_results["emergency"])
+    std_emergency = np.std(episode_results["emergency"])
+    
+    print(f"\n   📊 Summary over {NUM_EPISODES} episodes:")
+    print(f"   ➤ Avg Wait Time: {mean_wait:.2f} ± {std_wait:.2f} s")
+    print(f"   ➤ Avg Queue Length: {mean_queue:.2f} ± {std_queue:.2f}")
+    print(f"   ➤ Avg Throughput: {mean_throughput:.2f} ± {std_throughput:.2f}")
+    print(f"   ➤ Avg Emergencies/Step: {mean_emergency:.2f} ± {std_emergency:.2f}")
+    
+    return mean_wait, mean_queue, mean_throughput, mean_emergency, std_wait, std_queue, std_throughput, std_emergency
 
 def test_all():
     summary_rows = []
     agents = ["fixed", "ql", "ppo"]
-    metrics = {a: {"wait": [], "queue": [], "throughput": [], "emergency": []} for a in agents}
+    metrics = {a: {"wait": [], "queue": [], "throughput": [], "emergency": [],
+                  "wait_std": [], "queue_std": [], "throughput_std": [], "emergency_std": []} 
+              for a in agents}
 
     for net_file, route_file in NETWORKS:
         road_name = os.path.basename(net_file).replace(".net.xml", "")
         for agent in agents:
-            avg_wait, avg_queue, throughput, avg_emergency = run_agent(agent, road_name, net_file, route_file)
-            metrics[agent]["wait"].append(avg_wait)
-            metrics[agent]["queue"].append(avg_queue)
-            metrics[agent]["throughput"].append(throughput)
-            metrics[agent]["emergency"].append(avg_emergency)
+            mean_wait, mean_queue, mean_throughput, mean_emergency, \
+            std_wait, std_queue, std_throughput, std_emergency = run_agent(agent, road_name, net_file, route_file)
+            
+            metrics[agent]["wait"].append(mean_wait)
+            metrics[agent]["queue"].append(mean_queue)
+            metrics[agent]["throughput"].append(mean_throughput)
+            metrics[agent]["emergency"].append(mean_emergency)
+            metrics[agent]["wait_std"].append(std_wait)
+            metrics[agent]["queue_std"].append(std_queue)
+            metrics[agent]["throughput_std"].append(std_throughput)
+            metrics[agent]["emergency_std"].append(std_emergency)
+            
             summary_rows.append({
                 "Road": road_name,
                 "Agent": agent,
-                "Avg Wait Time (s)": avg_wait,
-                "Avg Queue Length": avg_queue,
-                "Throughput": throughput,
-                "Emergencies per Step": avg_emergency
+                "Avg Wait Time (s)": mean_wait,
+                "Wait Time Std": std_wait,
+                "Avg Queue Length": mean_queue,
+                "Queue Length Std": std_queue,
+                "Throughput": mean_throughput,
+                "Throughput Std": std_throughput,
+                "Emergencies per Step": mean_emergency,
+                "Emergencies Std": std_emergency
             })
 
     labels = [os.path.basename(net_file).replace(".net.xml", "") for net_file, _ in NETWORKS]
@@ -147,7 +200,9 @@ def test_all():
     for i, metric in enumerate(["wait", "queue", "throughput", "emergency"]):
         plt.subplot(1, 4, i+1)
         for j, agent in enumerate(agents):
-            plt.bar(x + j*width - width, metrics[agent][metric], width, label=agent)
+            means = metrics[agent][metric]
+            stds = metrics[agent][f"{metric}_std"]
+            plt.bar(x + j*width - width, means, width, label=agent, yerr=stds, capsize=5)
         plt.xticks(x, labels)
         plt.title(metric.capitalize())
         plt.xlabel("Road")

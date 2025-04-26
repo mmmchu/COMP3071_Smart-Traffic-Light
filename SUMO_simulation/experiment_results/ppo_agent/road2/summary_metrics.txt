@@ -1,5 +1,5 @@
 Summary for road2 (PPO)
-Average Waiting Time: 83.08 s
-Average Queue Length: 2.96
+Average Waiting Time: 98.60 s
+Average Queue Length: 3.09
 Throughput: 490
 Average Emergency Vehicles per Step: 0.00

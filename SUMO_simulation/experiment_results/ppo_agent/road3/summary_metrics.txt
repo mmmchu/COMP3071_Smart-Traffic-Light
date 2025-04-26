@@ -1,5 +1,5 @@
 Summary for road3 (PPO)
-Average Waiting Time: 7.91 s
-Average Queue Length: 1.46
+Average Waiting Time: 7.92 s
+Average Queue Length: 1.39
 Throughput: 164
-Average Emergency Vehicles per Step: 0.07
+Average Emergency Vehicles per Step: 0.04
