@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 import random
 import sumo_rl
 import traci
@@ -17,18 +16,20 @@ epochs = 10
 epsilon = 1
 gamma = 0.9
 
-def check_emergency_vehicle(ts_id):
-    emergency_count = 0
+
+def check_emergency_vehicle(traffic_id):
+    count_emergency = 0
     try:
-        lanes = traci.trafficlight.getControlledLanes(ts_id)
+        lanes = traci.trafficlight.getControlledLanes(traffic_id)
         for lane in lanes:
             vehicles = traci.lane.getLastStepVehicleIDs(lane)
             for veh in vehicles:
                 if traci.vehicle.getTypeID(veh) == "DEFAULT_CONTAINERTYPE":
-                    emergency_count += 1
-    except Exception as e:
-        print(f"Error checking emergency vehicle at {ts_id}: {e}")
-    return emergency_count
+                    count_emergency += 1
+    except Exception as exception:
+        print(f"Error checking emergency vehicle at {traffic_id}: {exception}")
+    return count_emergency
+
 
 ql_agent = QlAgent(input_shape=max_input_shape)
 avg_rewards = []
@@ -79,7 +80,8 @@ for epoch in range(epochs):
                     continue
 
                 current_phase = env.traffic_signals[ts_id].green_phase
-                valid_transitions = [key for key in env.traffic_signals[ts_id].yellow_dict.keys() if key[0] == current_phase]
+                valid_transitions = [key for key in env.traffic_signals[ts_id].yellow_dict.keys() if
+                                     key[0] == current_phase]
                 next_phase = random.choice(valid_transitions)[1] if valid_transitions else current_phase
 
                 if emergency_count > 0 and next_phase != current_phase:

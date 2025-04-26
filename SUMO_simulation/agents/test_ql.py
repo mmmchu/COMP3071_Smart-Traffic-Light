@@ -35,13 +35,15 @@ agent = QlAgent(input_shape=max_input_shape)
 agent.model.load_state_dict(torch.load(model_path))
 agent.model.eval()
 
+
 def check_emergency(ts):
     count = 0
-    for lane in traci.trafficlight.getControlledLanes(ts):
-        for v in traci.lane.getLastStepVehicleIDs(lane):
+    for carlane in traci.trafficlight.getControlledLanes(ts):
+        for v in traci.lane.getLastStepVehicleIDs(carlane):
             if traci.vehicle.getTypeID(v) == "DEFAULT_CONTAINERTYPE":
                 count += 1
     return count
+
 
 # === Tracking Metrics ===
 rewards_per_step = []

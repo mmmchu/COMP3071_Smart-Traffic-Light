@@ -1,4 +1,6 @@
 pygame~=2.6.1
-torch~=2.6.0
+torch~=2.7.0
 numpy~=2.2.4
 matplotlib~=3.10.1
+pandas~=2.2.3
+traci~=1.22.0

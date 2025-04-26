@@ -8,6 +8,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class ActorCritic(nn.Module):
     def __init__(self, state_dim, max_action_dim, hidden_size):
         super(ActorCritic, self).__init__()
@@ -24,6 +25,7 @@ class ActorCritic(nn.Module):
 
     def forward(self, x):
         return self.actor(x), self.critic(x)
+
 
 class PPO:
     def __init__(self, state_dim, max_action_dim, hidden_size, lr, gamma, clip_ratio, K_epoch):
@@ -73,12 +75,17 @@ class PPO:
             loss.backward()
             self.optimizer.step()
 
+
 def pad_state(state, max_state_dim):
     padded_state = np.zeros(max_state_dim, dtype=np.float32)
     padded_state[:len(state)] = state
     return padded_state
 
-def train(roads=["road1", "road2", "road3"], hidden_size=64, lr=3e-4, gamma=0.99, clip_ratio=0.2, K_epoch=10, max_steps=100, max_episodes=100):
+
+def train(roads=None, hidden_size=64, lr=3e-4, gamma=0.99, clip_ratio=0.2, K_epoch=10,
+          max_steps=100, max_episodes=100):
+    if roads is None:
+        roads = ["road1", "road2", "road3"]
     max_state_dim = 0
     max_action_dim = 0
 
@@ -115,7 +122,6 @@ def train(roads=["road1", "road2", "road3"], hidden_size=64, lr=3e-4, gamma=0.99
 
         for episode in range(max_episodes):
             state = pad_state(env.reset()[0], max_state_dim)
-            done = False
             total_reward = 0
 
             states, actions, old_probs, rewards = [], [], [], []
@@ -169,6 +175,7 @@ def train(roads=["road1", "road2", "road3"], hidden_size=64, lr=3e-4, gamma=0.99
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     torch.save(agent.actor_critic.state_dict(), save_path)
     print(f"Model saved at {save_path}.")
+
 
 if __name__ == "__main__":
     train()

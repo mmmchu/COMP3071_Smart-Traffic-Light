@@ -1,13 +1,12 @@
 import os
-
-# ✅ Set this BEFORE importing sumo_rl to inject additional files
-os.environ["SUMO_ADDITIONAL_FILES"] = "../nets/fixed_tls.add.xml"
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import traci
 from sumo_rl import SumoEnvironment
+
+# ✅ Set this BEFORE importing sumo_rl to inject additional files
+os.environ["SUMO_ADDITIONAL_FILES"] = "../nets/fixed_tls.add.xml"
 
 networks = [
     ("../nets/road1.net.xml", "../nets/road1.rou.xml", "road1"),
@@ -18,6 +17,7 @@ networks = [
 result_dir = "../experiment_results/fixed_agent"
 os.makedirs(result_dir, exist_ok=True)
 
+
 def count_emergency_vehicles():
     count = 0
     for lane in traci.lane.getIDList():
@@ -25,6 +25,7 @@ def count_emergency_vehicles():
             if traci.vehicle.getTypeID(v) == "DEFAULT_CONTAINERTYPE":
                 count += 1
     return count
+
 
 def log_emergency_wait():
     logs = []
@@ -34,6 +35,7 @@ def log_emergency_wait():
                 wait = traci.vehicle.getWaitingTime(veh_id)
                 logs.append((veh_id, wait))
     return logs
+
 
 for net_file, route_file, road_id in networks:
     print(f"\n🚦 Evaluating Fixed-Time Agent on {road_id}")

@@ -23,6 +23,7 @@ RESULT_DIR = "../experiment_results/ppo_agent"
 
 os.makedirs(RESULT_DIR, exist_ok=True)
 
+
 def count_emergency_vehicles():
     count = 0
     for lane in traci.lane.getIDList():
@@ -30,6 +31,7 @@ def count_emergency_vehicles():
             if traci.vehicle.getTypeID(v) == "DEFAULT_CONTAINERTYPE":
                 count += 1
     return count
+
 
 def log_emergency_wait():
     logs = []
@@ -39,6 +41,7 @@ def log_emergency_wait():
                 wait = traci.vehicle.getWaitingTime(veh_id)
                 logs.append((veh_id, wait))
     return logs
+
 
 def test_ppo():
     print("📦 Loading PPO model...")
@@ -127,6 +130,7 @@ def test_ppo():
             f.write(f"Average Emergency Vehicles per Step: {np.mean(emergency_counts):.2f}\n")
 
         env.close()
+
 
 if __name__ == "__main__":
     test_ppo()
